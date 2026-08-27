@@ -1,0 +1,8 @@
+Put these here (dummy paths already wired into the app):
+
+college_logo.png   -> top-left navbar logo (falls back to "TX" text if missing)
+techfinix_bg.jpg   -> optional static fallback behind the hero video
+
+app/static/images/events/*.jpg (optional) -> event thumbnail photos, referenced
+by the 'image' field seeded in database/seed_events.py. Not required — the
+hero events currently render as animated CSS visuals (rings/molecules), not photos.

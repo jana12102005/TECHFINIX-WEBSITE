@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+<rect width="400" height="400" fill="#03101f"/>
+<circle cx="200" cy="200" r="120" fill="none" stroke="#00a9d6" stroke-width="4" opacity="0.5"/>
+<text x="200" y="190" fill="#00a9d6" font-size="24" font-family="sans-serif" font-weight="bold" text-anchor="middle">TECHFINIX '26</text>
+<text x="200" y="225" fill="#d51b88" font-size="14" font-family="sans-serif" text-anchor="middle">EVENT POSTER</text>
+</svg>

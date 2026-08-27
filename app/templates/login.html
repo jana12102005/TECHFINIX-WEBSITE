@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login | TECHFINIX '26</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body style="background:#020817">
+{% include 'partials/flashes.html' %}
+{% include 'partials/nav.html' %}
+
+<div class="auth-page">
+    <div class="auth-box">
+        <small class="micro">TECHFINIX '26 · ACCESS</small>
+        <h1>LOG IN</h1>
+        <p style="color:#8da0b0;font-size:12px">Participants and coordinators use the same page — pick your tab.</p>
+
+        <div class="tab-btns">
+            <button type="button" id="tab-participant" class="active">PARTICIPANT</button>
+            <button type="button" id="tab-coordinator">COORDINATOR</button>
+        </div>
+
+        <form class="auth-form active" id="form-participant" method="post" action="{{ url_for('auth.login') }}">
+            <input type="hidden" name="mode" value="participant">
+            <div><label>PARTICIPANT ID</label><input type="text" name="participant_id" placeholder="TF26-001" required autocomplete="username"></div>
+            <div><label>PASSWORD</label><input type="password" name="password" placeholder="Temporary password" required autocomplete="current-password"></div>
+            <button class="auth-submit" type="submit">ENTER MY PHOTOS →</button>
+        </form>
+
+        <form class="auth-form" id="form-coordinator" method="post" action="{{ url_for('auth.login') }}">
+            <input type="hidden" name="mode" value="coordinator">
+            <div><label>USERNAME</label><input type="text" name="username" placeholder="coordinator username" required autocomplete="username"></div>
+            <div><label>PASSWORD</label><input type="password" name="password" placeholder="password" required autocomplete="current-password"></div>
+            <button class="auth-submit" type="submit">OPEN COORDINATOR DASHBOARD →</button>
+        </form>
+
+        <p class="auth-hint">Participant credentials are issued by your coordinator after registration.
+        Coordinator accounts are created via <code>database/create_coordinators.py</code>.</p>
+    </div>
+</div>
+
+<script>
+const tp=document.getElementById('tab-participant'),tc=document.getElementById('tab-coordinator');
+const fp=document.getElementById('form-participant'),fc=document.getElementById('form-coordinator');
+tp.onclick=()=>{tp.classList.add('active');tc.classList.remove('active');fp.classList.add('active');fc.classList.remove('active')};
+tc.onclick=()=>{tc.classList.add('active');tp.classList.remove('active');fc.classList.add('active');fp.classList.remove('active')};
+document.getElementById('menu')?.addEventListener('click',()=>document.getElementById('mobile').classList.toggle('open'));
+</script>
+</body></html>

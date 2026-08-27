@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results Command Center | TECHFINIX '26</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="results-command-body">
+    {% include 'partials/flashes.html' %}
+    {% include 'partials/nav.html' %}
+
+    <div class="results-page-wrapper">
+
+        <!-- 1. CINEMATIC RESULTS HERO -->
+        <section class="results-hero">
+            <div class="hero-biotech-bg">
+                <div class="hero-grid-overlay"></div>
+                <div class="hero-particle-glow"></div>
+                <div class="hero-vignette"></div>
+            </div>
+
+            <div class="results-hero-content">
+                <div class="hero-eyebrow">
+                    <span class="pulse-dot"></span>
+                    <small>TECHFINIX ’26 · BIOTECHNOLOGY SYMPOSIUM</small>
+                </div>
+
+                <h1 class="hero-title">
+                    THE RESULTS<br>
+                    <span class="highlight-cyan">ARE IN</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Celebrating the minds, experiments, and scientific innovations that shaped TECHFINIX ’26.
+                </p>
+
+                <div class="hero-live-badge">
+                    <span class="pulse-dot"></span>
+                    <span>● RESULTS LIVE</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 2. LIVE RESULTS STATUS PANEL -->
+        <section class="results-status-section">
+            <div class="status-panel-card">
+                <div class="hud-corner top-left"></div>
+                <div class="hud-corner top-right"></div>
+                <div class="hud-corner bottom-left"></div>
+                <div class="hud-corner bottom-right"></div>
+
+                <div class="status-panel-header">
+                    <div class="status-indicator-group">
+                        <span class="status-ring-pulse"></span>
+                        <strong class="status-title-text">RESULTS STATUS</strong>
+                    </div>
+                    <span class="status-time-code">SYS.VERIFIED.2026</span>
+                </div>
+
+                <div class="status-divider"></div>
+
+                {% set published_count = published|length %}
+                {% set total_count = events|length %}
+
+                {% if published_count > 0 %}
+                <div class="status-body live-state">
+                    <div class="status-badge live">● LIVE PUBLICATION</div>
+                    <div class="status-info">
+                        <h3>OFFICIAL RESULTS LIVE</h3>
+                        <p>Results are actively published by event coordinators. Currently <strong>{{ published_count }} of {{ total_count }}</strong> challenges verified.</p>
+                    </div>
+                    <div class="status-progress-track">
+                        <div class="status-progress-bar" style="width: {{ (published_count / (total_count if total_count > 0 else 1) * 100)|round }}%;"></div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="status-body standby-state">
+                    <div class="status-badge pending">◉ VERIFYING RESULTS</div>
+                    <div class="status-info">
+                        <h3>RESULTS ARE BEING VERIFIED</h3>
+                        <p>Official results will appear here once published by the coordinator.</p>
+                    </div>
+                    <div class="status-progress-track">
+                        <div class="status-progress-bar scanning"></div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <!-- 3. EVENT CATEGORY NAVIGATION CHIPS -->
+        <section class="results-nav-section">
+            <div class="category-nav-chips">
+                <button class="chip-btn active" data-filter="all" onclick="filterResults('all')">
+                    <span class="chip-icon">✦</span> ALL CHALLENGES
+                </button>
+                {% for e in events %}
+                <button class="chip-btn" data-filter="{{ e.slug }}" onclick="filterResults('{{ e.slug }}')">
+                    <span class="chip-icon">🧬</span> {{ e.name|upper }}
+                </button>
+                {% endfor %}
+            </div>
+        </section>
+
+
+        <!-- 4. OFFICIAL RESULTS DOSSIER SECTION -->
+        <section class="results-main-section">
+            <div class="results-section-header">
+                <small class="header-kicker">CLASSIFIED COMPETITION DOSSIERS</small>
+                <h2>OFFICIAL RESULTS</h2>
+                <p>Verified results from the TECHFINIX ’26 biotechnology challenges.</p>
+            </div>
+
+            <div class="results-cards-grid">
+                {% for e in events %}
+                    {% set r = published.get(e.slug) %}
+                    
+                    <div class="result-dossier-card {{ 'published-card' if r else 'locked-card' }} theme-{{ e.slug }}"
+                         data-category="{{ e.slug }}"
+                         {% if r %}onclick="showResultModal('{{ e.name|escape }}', '{{ (r.summary or '')|escape }}', '{{ (r.winners|join(';;;') or '')|escape }}')"{% endif %}>
+
+                        <div class="dossier-corner top-left"></div>
+                        <div class="dossier-corner top-right"></div>
+                        <div class="dossier-corner bottom-left"></div>
+                        <div class="dossier-corner bottom-right"></div>
+
+                        <!-- Card Header -->
+                        <div class="dossier-header">
+                            <div class="dossier-tag">
+                                <span class="dossier-num">DOSSIER #0{{ loop.index }}</span>
+                                <span class="dossier-theme-pill">{{ e.name|upper }}</span>
+                            </div>
+                            {% if r %}
+                            <span class="publish-status-badge live">● VERIFIED</span>
+                            {% else %}
+                            <span class="publish-status-badge locked">🔒 LOCKED</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Event Title -->
+                        <h3 class="dossier-event-title">{{ e.name }}</h3>
+
+                        {% if r %}
+                        <!-- PUBLISHED RESULTS STATE: 3D PODIUM PRESENTATION -->
+                        <div class="dossier-published-body">
+                            {% if r.summary %}
+                            <p class="dossier-summary">{{ r.summary }}</p>
+                            {% endif %}
+
+                            <!-- Podium Structure for Top 3 -->
+                            {% if r.winners %}
+                            <div class="podium-wrapper">
+                                <div class="podium-title-bar">
+                                    <span>TOP CHAMPIONS</span>
+                                </div>
+                                <div class="podium-stage">
+                                    <!-- 2nd Place (Left) -->
+                                    {% if r.winners|length > 1 %}
+                                    <div class="podium-pillar pillar-2nd">
+                                        <div class="pillar-top">🥈</div>
+                                        <div class="pillar-rank">2ND PLACE</div>
+                                        <div class="pillar-name">{{ r.winners[1] }}</div>
+                                        <div class="pillar-base">2</div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- 1st Place (Center / Highest) -->
+                                    {% if r.winners|length > 0 %}
+                                    <div class="podium-pillar pillar-1st">
+                                        <div class="pillar-glow"></div>
+                                        <div class="pillar-top">🏆</div>
+                                        <div class="pillar-rank">1ST PLACE / WINNER</div>
+                                        <div class="pillar-name">{{ r.winners[0] }}</div>
+                                        <div class="pillar-base">1</div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- 3rd Place (Right) -->
+                                    {% if r.winners|length > 2 %}
+                                    <div class="podium-pillar pillar-3rd">
+                                        <div class="pillar-top">🥉</div>
+                                        <div class="pillar-rank">3RD PLACE</div>
+                                        <div class="pillar-name">{{ r.winners[2] }}</div>
+                                        <div class="pillar-base">3</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Remaining Runners-up beyond 3rd place -->
+                                {% if r.winners|length > 3 %}
+                                <div class="other-winners-list">
+                                    <small>HONORABLE MENTIONS:</small>
+                                    <ul>
+                                        {% for w in r.winners[3:] %}
+                                        <li>🏅 <span>{{ w }}</span></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+
+                            <div class="dossier-footer-action">
+                                <span>CLICK TO VIEW FULL CHAMPIONSHIP DETAILS ↘</span>
+                            </div>
+                        </div>
+
+                        {% else %}
+
+                        <!-- UNPUBLISHED / LOCKED STATE -->
+                        <div class="dossier-locked-body">
+                            <div class="locked-scanner-box">
+                                <div class="scan-beam"></div>
+                                <div class="locked-icon-ring">
+                                    <span class="lock-symbol">🔒</span>
+                                </div>
+                                <h4 class="locked-heading">RESULTS LOCKED</h4>
+                                <p class="locked-sub">Awaiting official publication by event coordinator.</p>
+                                <div class="locked-system-tag">[ SYSTEM STATUS: STANDBY ]</div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <b>TECHFINIX<span>'26</span></b>
+            <p>DEPARTMENT OF BIOTECHNOLOGY</p>
+            <em>THINK BIOTECH. THINK BEYOND. THINK TECHFINIX '26!</em>
+        </footer>
+
+    </div>
+
+    <!-- Animated Result Detail Modal Popup (Preserved & Enhanced) -->
+    <div id="resultModal" class="result-modal-backdrop" style="display:none;">
+        <div class="result-modal-card">
+            <span onclick="closeResultModal()" class="modal-close-btn">&times;</span>
+            <div class="modal-hud-badge">OFFICIAL SYMPOSIUM WINNERS</div>
+            <h2 id="modalEventTitle" class="modal-event-title"></h2>
+            <p id="modalSummary" class="modal-summary-text"></p>
+            <div class="modal-winners-box">
+                <small class="modal-winners-heading">VERIFIED POSITIONS & TEAMS</small>
+                <ul id="modalWinnersList" class="modal-winners-ul"></ul>
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeResultModal()" class="primary-modal-btn">CLOSE DOSSIER</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.getElementById('menu')?.addEventListener('click',()=>document.getElementById('mobile').classList.toggle('open'));
+
+// Category Filter JS
+function filterResults(category) {
+    const chips = document.querySelectorAll('.chip-btn');
+    chips.forEach(c => {
+        if (c.getAttribute('data-filter') === category) {
+            c.classList.add('active');
+        } else {
+            c.classList.remove('active');
+        }
+    });
+
+    const cards = document.querySelectorAll('.result-dossier-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Modal Popup Handlers
+function showResultModal(title, summary, winnersRaw){
+    document.getElementById('modalEventTitle').textContent = title;
+    document.getElementById('modalSummary').textContent = summary || 'Final event scoring and results published by event coordinators.';
+    
+    const list = document.getElementById('modalWinnersList');
+    list.innerHTML = '';
+    const winners = winnersRaw ? winnersRaw.split(';;;') : [];
+    if(winners.length > 0){
+        winners.forEach((w, idx) => {
+            const li = document.createElement('li');
+            const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '🏅'));
+            li.innerHTML = `<strong>${medal} ${w}</strong>`;
+            list.appendChild(li);
+        });
+    } else {
+        list.innerHTML = '<li>Results published.</li>';
+    }
+    
+    document.getElementById('resultModal').style.display = 'flex';
+}
+
+function closeResultModal(){
+    document.getElementById('resultModal').style.display = 'none';
+}
+
+document.getElementById('resultModal')?.addEventListener('click', function(e){
+    if(e.target === this) closeResultModal();
+});
+</script>
+</body>
+</html>

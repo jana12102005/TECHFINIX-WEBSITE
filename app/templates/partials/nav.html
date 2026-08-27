@@ -1,0 +1,45 @@
+<header class="nav">
+    <a href="{{ url_for('main.index') }}" class="brand">
+        <b><img src="{{ url_for('static', filename='images/college_logo.png') }}" alt="" class="brand-logo" onerror="this.style.display='none';this.parentElement.textContent='TX'"></b>
+        <span><strong>TECHFINIX</strong><small>'26 · BIOTECHNOLOGY</small></span>
+    </a>
+    <nav>
+        <a href="{{ url_for('main.index') }}#about">ABOUT</a>
+        <a href="{{ url_for('main.index') }}#events">EVENTS</a>
+        <a href="{{ url_for('main.index') }}#event-paper-presentation">PAPER PRESENTATION</a>
+        <a href="{{ url_for('main.index') }}#event-project-expo">PROJECT EXPO</a>
+        <a href="{{ url_for('gallery.index') }}">GALLERY</a>
+        <a href="{{ url_for('results.index') }}">RESULTS</a>
+        {% set user = session.get('user') %}
+        {% if user %}
+            {% if user.role == 'participant' %}
+                <a href="{{ url_for('participant.dashboard') }}">MY DASHBOARD</a>
+            {% else %}
+                <a href="{{ url_for('coordinator.dashboard') }}">DASHBOARD</a>
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}" class="nav-login">LOGOUT</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-login">LOGIN</a>
+        {% endif %}
+    </nav>
+    <button class="menu-btn" id="menu">☰</button>
+</header>
+<div id="mobile" class="mobile">
+    <a href="{{ url_for('main.index') }}#about">ABOUT</a>
+    <a href="{{ url_for('main.index') }}#events">EVENTS</a>
+    <a href="{{ url_for('main.index') }}#event-paper-presentation">PAPER PRESENTATION</a>
+    <a href="{{ url_for('main.index') }}#event-project-expo">PROJECT EXPO</a>
+    <a href="{{ url_for('gallery.index') }}">GALLERY</a>
+    <a href="{{ url_for('results.index') }}">RESULTS</a>
+    {% set user = session.get('user') %}
+    {% if user %}
+        {% if user.role == 'participant' %}
+            <a href="{{ url_for('participant.dashboard') }}">MY DASHBOARD</a>
+        {% else %}
+            <a href="{{ url_for('coordinator.dashboard') }}">DASHBOARD</a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}">LOGOUT</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">LOGIN</a>
+    {% endif %}
+</div>

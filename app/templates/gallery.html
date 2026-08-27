@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gallery | TECHFINIX '26</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body style="background:#020817">
+{% include 'partials/flashes.html' %}
+{% include 'partials/nav.html' %}
+
+<div class="dash">
+    <div class="dash-head">
+        <div>
+            <h1>EVENT <span>GALLERY</span></h1>
+            <p class="dash-sub">Every photo uploaded by coordinators, across every TECHFINIX '26 event.</p>
+        </div>
+    </div>
+
+    <div class="gallery-filters">
+        <a href="{{ url_for('gallery.index') }}" class="{{ 'active' if not active_event }}">ALL</a>
+        {% for e in events %}
+        <a href="{{ url_for('gallery.index', event=e.slug) }}" class="{{ 'active' if active_event == e.slug }}">{{ e.name|upper }}</a>
+        {% endfor %}
+    </div>
+
+    {% if photos %}
+    <div class="photo-grid">
+        {% for p in photos %}
+        <div class="photo-card">
+            <img src="{{ p.url }}" alt="{{ p.event_slug }}" loading="lazy" style="cursor:pointer;" onclick="openLightbox('{{ p.url }}')">
+            <div class="photo-meta">
+                <span>{{ p.event_slug|replace('-', ' ')|upper }}</span>
+                <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
+                    {% set curr_user = session.get('user') %}
+                    {% if curr_user and curr_user.role == 'super_coordinator' %}
+                    <form method="post" action="{{ url_for('coordinator.delete_photo_route', photo_id=p._id) }}" style="display:inline;" onsubmit="return confirm('Delete this photo permanently?');">
+                        <button type="submit" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;font-size:11px;border-radius:3px;cursor:pointer;">DELETE</button>
+                    </form>
+                    {% endif %}
+                    <a href="{{ p.url }}" download target="_blank" rel="noopener">DOWNLOAD ↓</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">No photos uploaded for this event yet.</div>
+    {% endif %}
+</div>
+
+<!-- Gallery Lightbox Modal -->
+<div id="lightboxModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(2,8,23,0.92);z-index:99999;justify-content:center;align-items:center;padding:20px;">
+    <span onclick="closeLightbox()" style="position:absolute;top:20px;right:30px;font-size:36px;color:#fff;cursor:pointer;">&times;</span>
+    <img id="lightboxImg" src="" style="max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 0 30px rgba(0,169,214,0.4);border:1px solid #00a9d6;">
+</div>
+
+<script>
+document.getElementById('menu')?.addEventListener('click',()=>document.getElementById('mobile').classList.toggle('open'));
+function openLightbox(url){
+    const m = document.getElementById('lightboxModal');
+    document.getElementById('lightboxImg').src = url;
+    m.style.display = 'flex';
+}
+function closeLightbox(){
+    document.getElementById('lightboxModal').style.display = 'none';
+}
+document.getElementById('lightboxModal')?.addEventListener('click', function(e){
+    if(e.target === this) closeLightbox();
+});
+</script>
+</body></html>

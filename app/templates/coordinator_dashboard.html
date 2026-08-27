@@ -1,0 +1,136 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coordinator Dashboard | TECHFINIX '26</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body style="background:#020817">
+{% include 'partials/flashes.html' %}
+{% include 'partials/nav.html' %}
+
+<div class="dash">
+    <div class="dash-head">
+        <div>
+            <h1>COORDINATOR <span>DASHBOARD</span></h1>
+            <p class="dash-sub">{{ user.name }} · {{ 'Super Coordinator (all events)' if user.role == 'super_coordinator' else 'Event Coordinator' }}</p>
+        </div>
+    <!-- Dedicated Quick Photo Uploader (1-Click Upload or Live Capture) -->
+    <div class="coord-panel" style="margin-bottom: 30px; background: rgba(0, 169, 214, 0.08); border: 1px solid rgba(0, 169, 214, 0.3);">
+        <small class="micro" style="color: #00a9d6;">INSTANT PHOTO UPLOADER &amp; LIVE CAMERA</small>
+        <form method="post" action="{{ url_for('coordinator.upload_photo') }}" enctype="multipart/form-data" class="upload-form" style="margin-top: 10px;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
+                <div style="flex: 1; min-width: 180px;">
+                    <label style="font-size: 11px; color: #8da0b0; display: block; margin-bottom: 4px;">EVENT (OPTIONAL)</label>
+                    <select name="event_slug" class="status-select" style="width: 100%; padding: 8px; background: #07152b; border: 1px solid #1e3a5f; color: #fff; border-radius: 4px;">
+                        <option value="">-- All / General Event --</option>
+                        {% for ev in events %}
+                        <option value="{{ ev.slug }}">{{ ev.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="flex: 2; min-width: 260px;">
+                    <label style="font-size: 11px; color: #8da0b0; display: block; margin-bottom: 4px;">CHOOSE IMAGE FILE(S)</label>
+                    <input type="file" name="photos" accept="image/*" multiple style="color:#fff;">
+                </div>
+            </div>
+            <div class="dash-actions">
+                <button type="submit" class="btn btn-primary">UPLOAD NOW</button>
+                <button type="button" class="btn camera-toggle" data-target="cam-global">TAKE LIVE PHOTO</button>
+            </div>
+            <div class="camera-wrap" id="cam-global">
+                <video autoplay playsinline class="cam-video"></video>
+                <canvas class="cam-canvas" style="display:none"></canvas>
+                <input type="hidden" name="capture_data_url" class="cam-data-input">
+                <div class="camera-actions">
+                    <button type="button" class="btn cam-start">START CAMERA</button>
+                    <button type="button" class="btn cam-shot">CAPTURE PHOTO</button>
+                    <button type="button" class="btn btn-primary cam-submit">SAVE CAPTURE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="coord-grid">
+        {% for e in events %}
+        <div class="coord-panel">
+            <div class="event-row" style="border-bottom:1px solid #ffffff18;padding-bottom:16px">
+                <div>
+                    <h3>{{ e.name }}</h3>
+                    <small>{{ e.category|replace('_',' ')|upper }} · {{ e.day }}</small>
+                </div>
+                <form method="post" action="{{ url_for('coordinator.update_event_status', event_slug=e.slug) }}">
+                    <select name="status" class="status-select" onchange="this.form.submit()">
+                        <option value="upcoming" {{ 'selected' if e.status=='upcoming' }}>UPCOMING</option>
+                        <option value="live" {{ 'selected' if e.status=='live' }}>LIVE</option>
+                        <option value="completed" {{ 'selected' if e.status=='completed' }}>COMPLETED</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Upload photos -->
+            <form method="post" action="{{ url_for('coordinator.upload_photo') }}" enctype="multipart/form-data" class="upload-form">
+                <input type="hidden" name="event_slug" value="{{ e.slug }}">
+                <div class="upload-drop">
+                    <small class="micro">UPLOAD PHOTOS FOR {{ e.name|upper }}</small>
+                    <div><input type="file" name="photos" accept="image/*" multiple></div>
+                </div>
+                <div class="dash-actions" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary">UPLOAD FILES</button>
+                    <button type="button" class="btn camera-toggle" data-target="cam-{{ e.slug }}">USE LIVE CAMERA</button>
+                </div>
+                <div class="camera-wrap" id="cam-{{ e.slug }}">
+                    <video autoplay playsinline class="cam-video"></video>
+                    <canvas class="cam-canvas" style="display:none"></canvas>
+                    <input type="hidden" name="capture_data_url" class="cam-data-input">
+                    <div class="camera-actions">
+                        <button type="button" class="btn cam-start">START CAMERA</button>
+                        <button type="button" class="btn cam-shot">CAPTURE PHOTO</button>
+                        <button type="button" class="btn btn-primary cam-submit">SAVE CAPTURE</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Results -->
+            <form method="post" action="{{ url_for('coordinator.update_results', event_slug=e.slug) }}" class="results-form">
+                <small class="micro">RESULTS — {{ 'PUBLISHED' if results_by_slug.get(e.slug, {}).get('published') else 'DRAFT / NOT PUBLISHED' }}</small>
+                <textarea name="winners" placeholder="One winner/team per line, e.g.&#10;1st — BioForce (Team A)&#10;2nd — BioSquad (Team B)">{{ results_by_slug.get(e.slug, {}).get('winners', [])|join('\n') }}</textarea>
+                <textarea name="summary" placeholder="Optional short summary shown on the public results page.">{{ results_by_slug.get(e.slug, {}).get('summary', '') }}</textarea>
+                <label class="publish-row">
+                    <input type="checkbox" name="publish" {{ 'checked' if results_by_slug.get(e.slug, {}).get('published') }}>
+                    PUBLISH — make this visible on the public Results page immediately
+                </label>
+                <button type="submit" class="btn btn-primary" style="align-self:flex-start">SAVE / UPDATE RESULTS</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="dash-head" style="margin-top:60px">
+        <div><h1 style="font-size:32px">RECENT <span>UPLOADS</span></h1></div>
+    </div>
+    {% if recent_photos %}
+    <div class="photo-grid">
+        {% for p in recent_photos %}
+        <div class="photo-card">
+            <img src="{{ p.url }}" alt="" loading="lazy">
+            <div class="photo-meta">
+                <span>{{ p.event_slug|replace('-', ' ')|upper }}</span>
+                {% if user.role == 'super_coordinator' %}
+                <form method="post" action="{{ url_for('coordinator.delete_photo_route', photo_id=p._id) }}" style="display:inline;" onsubmit="return confirm('Delete this photo permanently?');">
+                    <button type="submit" style="background:#ef4444;color:#fff;border:none;padding:3px 8px;font-size:11px;border-radius:3px;cursor:pointer;margin-left:auto;">DELETE</button>
+                </form>
+                {% else %}
+                <span>{{ p.uploaded_by }}</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">No photos uploaded yet.</div>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='js/coordinator.js') }}"></script>
+<script>document.getElementById('menu')?.addEventListener('click',()=>document.getElementById('mobile').classList.toggle('open'));</script>
+</body></html>

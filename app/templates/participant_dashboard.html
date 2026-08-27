@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Participant Dashboard | TECHFINIX '26</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body style="background:#020817">
+{% include 'partials/flashes.html' %}
+{% include 'partials/nav.html' %}
+
+<div class="dash">
+    <div class="dash-head">
+        <div>
+            <h1>PARTICIPANT <span>DASHBOARD</span></h1>
+            <p class="dash-sub">Welcome, {{ user.name or user.participant_id }} · {{ user.participant_id }}</p>
+        </div>
+        {% if photos %}
+        <div class="dash-actions">
+            <a class="btn btn-primary" href="{{ url_for('participant.download_all') }}">DOWNLOAD ALL PHOTOS (ZIP)</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Profile & My Events Summary -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:40px;">
+        <div style="flex:1;min-width:280px;background:#07152b;border:1px solid #1e3a5f;border-radius:10px;padding:20px;">
+            <small class="micro" style="color:#00a9d6;">PARTICIPANT PROFILE</small>
+            <h3 style="color:#fff;margin:8px 0;">{{ user.name or user.participant_id }}</h3>
+            <p style="color:#8da0b0;font-size:13px;margin-bottom:6px;"><strong>ID:</strong> {{ user.participant_id }}</p>
+            {% if user.team %}<p style="color:#8da0b0;font-size:13px;margin-bottom:6px;"><strong>TEAM:</strong> {{ user.team }}</p>{% endif %}
+            {% if user.email %}<p style="color:#8da0b0;font-size:13px;margin-bottom:6px;"><strong>EMAIL:</strong> {{ user.email }}</p>{% endif %}
+            <p style="color:#8da0b0;font-size:13px;"><strong>EVENT:</strong> {{ (user.event or 'General Participant')|replace('-', ' ')|upper }}</p>
+        </div>
+
+        {% if my_event %}
+        <div style="flex:1;min-width:280px;background:#07152b;border:1px solid #d51b88;border-radius:10px;padding:20px;">
+            <small class="micro" style="color:#d51b88;">MY REGISTERED EVENT</small>
+            <h3 style="color:#fff;margin:8px 0;">{{ my_event.name }}</h3>
+            <p style="color:#8da0b0;font-size:13px;margin-bottom:8px;">{{ my_event.description }}</p>
+            <small style="color:#00a9d6;font-weight:700;">{{ my_event.day }} · STATUS: {{ (my_event.status or 'UPCOMING')|upper }}</small>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- My Photos Section -->
+    <div class="dash-head" style="margin-top:20px;">
+        <div><h2 style="font-size:24px;color:#fff;">MY <span>EVENT PHOTOS</span></h2></div>
+    </div>
+
+    {% if photos %}
+    <div class="photo-grid">
+        {% for p in photos %}
+        <div class="photo-card">
+            <img src="{{ p.url }}" alt="Event photo" loading="lazy">
+            <div class="photo-meta">
+                <span>{{ p.event_slug|replace('-', ' ')|upper }}</span>
+                <a href="{{ p.url }}" download target="_blank" rel="noopener">DOWNLOAD ↓</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">No event photos available yet. Your coordinator will upload photos during and after your event!</div>
+    {% endif %}
+
+    <!-- Published Results Section -->
+    <div class="dash-head" style="margin-top:50px;">
+        <div><h2 style="font-size:24px;color:#fff;">PUBLISHED <span>RESULTS</span></h2></div>
+    </div>
+    <div class="results-list">
+        {% for e in all_events %}
+            {% set r = published_results.get(e.slug) %}
+            {% if r %}
+            <div class="result-card">
+                <small class="micro" style="color:#00a9d6">PUBLISHED RESULT</small>
+                <h3 style="margin-top:4px">{{ e.name }}</h3>
+                {% if r.summary %}<p style="color:#8da0b0;font-size:13px">{{ r.summary }}</p>{% endif %}
+                {% if r.winners %}
+                <ul class="winners" style="margin-top:10px">
+                    {% for w in r.winners %}<li>🏆 {{ w }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<script>document.getElementById('menu')?.addEventListener('click',()=>document.getElementById('mobile').classList.toggle('open'));</script>
+</body></html>

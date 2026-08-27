@@ -1,0 +1,1389 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TECHFINIX '26 | National Symposium</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head><body>
+<script>
+const INTRO_VIDEO_PATH="{{url_for('static',filename='media/intro_video.mp4')}}";
+const BACKGROUND_VIDEO_PATH="{{url_for('static',filename='media/background_video.mp4')}}";
+</script>
+
+{% include 'partials/flashes.html' %}
+
+<div id="preloader" class="screen"><div class="loader"><small>PAAVAI ENGINEERING COLLEGE · DEPARTMENT OF BIOTECHNOLOGY</small><h1>LOADING<span>...</span></h1><div class="bar"><i id="bar"></i></div><em id="pct">00%</em></div></div>
+
+<div id="desktop" class="screen hide"><div class="desktop-msg"><small>TECHFINIX '26 · IMMERSIVE EXPERIENCE</small><h2>FOR A BETTER<br><b>EXPERIENCE</b></h2><p>Use desktop for the full cinematic biotechnology experience.</p><button id="enter">ENTER EXPERIENCE <span>↗</span></button></div></div>
+
+<section id="intro" class="intro hide">
+    <video id="video" playsinline preload="auto"><source id="videoSource" src="" type="video/mp4"></video>
+    <div class="vignette"></div>
+    <button id="skip">SKIP INTRO <span>→</span></button>
+    <div class="videoBar"><i id="vbar"></i></div>
+</section>
+
+<main id="site" class="hide">
+
+{% include 'partials/nav.html' %}
+
+<section id="home" class="hero">
+    <video class="heroVideo" autoplay muted loop playsinline id="heroVideo"><source src="" id="heroVideoSource" type="video/mp4"></video>
+    <div class="heroBg"></div>
+    <div class="grid"></div>
+    <div id="particles"></div>
+    <div class="heroContent">
+        <small class="micro">PAAVAI ENGINEERING COLLEGE (AUTONOMOUS)</small>
+        <div class="kicker">NATIONAL LEVEL SYMPOSIUM · DEPARTMENT OF BIOTECHNOLOGY</div>
+        <h1>TECHFINIX <span>'26</span></h1>
+        <div class="rule"></div>
+        <h3>EXPLORE. EXPERIMENT. EXCEL.</h3>
+        <p>Where biotech minds meet challenges<br>and ideas become impact.</p>
+        <div class="actions">
+            <a href="#events" class="primary">EXPLORE EVENTS <span>↘</span></a>
+            <a href="#register" class="secondary">REGISTER NOW</a>
+        </div>
+    </div>
+
+    <!-- ================= FUTURISTIC BIO-RESEARCH MISSION COUNTDOWN TIMER ================= -->
+    <div class="techfinix-countdown">
+        <div class="countdown-panel">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner top-right"></div>
+            <div class="hud-corner bottom-left"></div>
+            <div class="hud-corner bottom-right"></div>
+
+            <!-- Rotating Bio HUD Ring Background Element -->
+            <div class="hud-ring-spinner"></div>
+
+            <div class="countdown-header">
+                <span class="bio-pulse-dot"></span>
+                <small class="countdown-kicker">BIO-RESEARCH PROTOCOL</small>
+            </div>
+            <h4 class="countdown-title">MISSION COUNTDOWN</h4>
+
+            <div id="countdownClockDisplay" class="countdown-grid">
+                <div class="time-block">
+                    <span id="cdDays" class="time-num">00</span>
+                    <span class="time-lbl">DAYS</span>
+                </div>
+                <span class="time-colon">:</span>
+                <div class="time-block">
+                    <span id="cdHours" class="time-num">00</span>
+                    <span class="time-lbl">HOURS</span>
+                </div>
+                <span class="time-colon">:</span>
+                <div class="time-block">
+                    <span id="cdMinutes" class="time-num">00</span>
+                    <span class="time-lbl">MINUTES</span>
+                </div>
+                <span class="time-colon">:</span>
+                <div class="time-block highlight">
+                    <span id="cdSeconds" class="time-num">00</span>
+                    <span class="time-lbl">SECONDS</span>
+                </div>
+            </div>
+
+            <div id="countdownStatusMsg" class="countdown-status">
+                PAAVAI BIOTECH LAUNCH TARGET
+            </div>
+
+            <div class="countdown-footer">
+                <i class="dna-mini-icon">🧬</i>
+                <span>10 SEPTEMBER 2026 · 10:00 AM IST</span>
+            </div>
+        </div>
+    </div>
+    <div class="orbit o1"></div>
+    <div class="orbit o2"></div>
+    <div class="scroll">SCROLL TO EXPLORE</div>
+</section>
+
+<!-- Cinematic Rain & Thunder Section Wrapper (Starts from Section 01: Why Techfinix) -->
+<div class="cinematic-rain-wrapper">
+    <canvas id="rainThunderCanvas"></canvas>
+
+    <section id="about" class="section about">
+        <div class="num">01</div>
+        <div class="twocol">
+            <div><small class="micro">THE EXPERIENCE</small><h2>WHY<br><span>TECHFINIX?</span></h2></div>
+            <div class="copy">
+                <p class="lead">A Two-Days Biotechnology symposium built around discovery, experimentation, scientific thinking and competition.</p>
+                <p>From laboratory mysteries to molecular docking and biomolecule challenges, TECHFINIX '26 brings students into an environment where scientific knowledge becomes an experience.</p>
+            </div>
+        </div>
+    </section>
+
+<!-- ================= REDESIGNED TWO-DAY BIO-RESEARCH MISSION DATES SECTION ================= -->
+<section class="dates bio-dates-mission">
+    <!-- Connecting Glowing Cyan Line with Timeline Nodes -->
+    <div class="dates-connector-line">
+        <span class="node node-left"></span>
+        <span class="node node-center"></span>
+        <span class="node node-right"></span>
+    </div>
+
+    <!-- LEFT: DAY 01 TECHNICAL EVENTS -->
+    <div class="date-mission-col date-col-left">
+        <span class="day-kicker">DAY 01</span>
+        <b class="date-huge-num">10</b>
+        <span class="date-month-year">SEPTEMBER 2026</span>
+        <span class="event-type-badge">TECHNICAL EVENTS</span>
+    </div>
+
+    <!-- CENTER: TECHFINIX '26 TWO-DAY MISSION -->
+    <div class="date-mission-col date-col-center">
+        <small class="center-kicker">TECHFINIX '26</small>
+        <strong class="center-date-range">10 — 11</strong>
+        <span class="center-month-year">SEPTEMBER 2026</span>
+        <em class="center-subhead">TWO-DAY NATIONAL LEVEL SYMPOSIUM</em>
+    </div>
+
+    <!-- RIGHT: DAY 02 NON-TECHNICAL EVENTS -->
+    <div class="date-mission-col date-col-right">
+        <span class="day-kicker">DAY 02</span>
+        <b class="date-huge-num">11</b>
+        <span class="date-month-year">SEPTEMBER 2026</span>
+        <span class="event-type-badge alt">NON-TECHNICAL EVENTS</span>
+    </div>
+</section>
+
+<!-- Continuous marquee strip of every event name -->
+<div class="marquee">
+    <div class="marquee-track">
+        {% for e in (technical_events + non_technical_events) * 2 %}
+        <span>{{ e.name }} <i>✦</i></span>
+        {% endfor %}
+    </div>
+</div>
+
+<section id="events" class="section events">
+    <div class="num">02</div>
+    <div class="head">
+        <div><small class="micro">TECHFINIX '26 · SYMPOSIUM LINEUP</small><h2>ENTER THE<br><span>LAB &amp; ARENA</span></h2></div>
+        <p>Hanging along the 5' → 3' DNA double helix. Click any card to view event details and poster.</p>
+    </div>
+
+    <!-- ROW 1: TECHNICAL EVENTS (Day 1) -->
+    <div class="dna-row">
+        <div class="dna-row-head">
+            <h3>ROW 1 · TECHNICAL EVENTS</h3>
+            <span class="dna-strand-tag">5' ─── DAY 01 STRAND ─── 3'</span>
+        </div>
+        <div class="dna-rope-wrap">
+            <svg class="dna-rope-svg" viewBox="0 0 1200 90" preserveAspectRatio="none">
+                <defs><linearGradient id="dnaGrad1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00a9d6"/><stop offset="100%" stop-color="#754bff"/></linearGradient></defs>
+                <!-- Strand Labels -->
+                <text x="8" y="24" fill="#00a9d6" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">5'</text>
+                <text x="8" y="74" fill="#d51b88" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">3'</text>
+                <text x="1178" y="24" fill="#d51b88" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">3'</text>
+                <text x="1178" y="74" fill="#00a9d6" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">5'</text>
+                <!-- Base Pair Rungs -->
+                <g stroke="rgba(0,169,214,0.35)" stroke-width="1.5" stroke-dasharray="3,3">
+                    <line x1="120" y1="20" x2="120" y2="70"/><line x1="240" y1="45" x2="240" y2="45"/><line x1="360" y1="70" x2="360" y2="20"/>
+                    <line x1="480" y1="45" x2="480" y2="45"/><line x1="600" y1="20" x2="600" y2="70"/><line x1="720" y1="45" x2="720" y2="45"/>
+                    <line x1="840" y1="70" x2="840" y2="20"/><line x1="960" y1="45" x2="960" y2="45"/><line x1="1080" y1="20" x2="1080" y2="70"/>
+                </g>
+                <path d="M30,45 C 180,5 330,85 480,45 C 630,5 780,85 930,45 C 1080,5 1170,45 1170,45" stroke="url(#dnaGrad1)" stroke-width="2.5" fill="none"/>
+                <path d="M30,45 C 180,85 330,5 480,45 C 630,85 780,5 930,45 C 1080,85 1170,45 1170,45" stroke="url(#dnaGrad1)" stroke-width="2.5" fill="none" opacity=".6"/>
+            </svg>
+            <div class="dna-rope-items dna-items-2">
+                {% for e in technical_events %}
+                <div class="dna-item" style="--i:{{ loop.index0 }}">
+                    <div class="dna-string"></div>
+                    <div class="dna-card-wrap">
+                        <div class="dna-card-square" onclick="openEventDetailModal('{{ e.slug }}')">
+                            <span class="card-icon">{{ '⌬' if loop.index0 == 0 else '◫' }}</span>
+                            <img src="/static/images/events/{{ e.slug }}.jpg" onerror="this.onerror=null;this.src='/static/images/events/dummy_event.jpg'" alt="{{ e.name }}">
+                            <div class="img-overlay"></div>
+                        </div>
+                        <div class="hanging-label-string"></div>
+                        <div class="dna-card-label" onclick="openEventDetailModal('{{ e.slug }}')">
+                            <span>{{ e.name }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 2: NON-TECHNICAL EVENTS (Day 2) -->
+    <div class="dna-row">
+        <div class="dna-row-head">
+            <h3>ROW 2 · NON-TECHNICAL EVENTS</h3>
+            <span class="dna-strand-tag">5' ─── DAY 02 STRAND ─── 3'</span>
+        </div>
+        <div class="dna-rope-wrap">
+            <svg class="dna-rope-svg" viewBox="0 0 1200 90" preserveAspectRatio="none">
+                <defs><linearGradient id="dnaGrad2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d51b88"/><stop offset="100%" stop-color="#00a9d6"/></linearGradient></defs>
+                <!-- Strand Labels -->
+                <text x="8" y="24" fill="#d51b88" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">5'</text>
+                <text x="8" y="74" fill="#00a9d6" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">3'</text>
+                <text x="1178" y="24" fill="#00a9d6" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">3'</text>
+                <text x="1178" y="74" fill="#d51b88" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">5'</text>
+                <!-- Base Pair Rungs -->
+                <g stroke="rgba(213,27,136,0.35)" stroke-width="1.5" stroke-dasharray="3,3">
+                    <line x1="150" y1="20" x2="150" y2="70"/><line x1="300" y1="45" x2="300" y2="45"/><line x1="450" y1="70" x2="450" y2="20"/>
+                    <line x1="600" y1="45" x2="600" y2="45"/><line x1="750" y1="20" x2="750" y2="70"/><line x1="900" y1="45" x2="900" y2="45"/><line x1="1050" y1="70" x2="1050" y2="20"/>
+                </g>
+                <path d="M30,45 C 200,5 370,85 540,45 C 710,5 880,85 1050,45 C 1130,25 1170,45 1170,45" stroke="url(#dnaGrad2)" stroke-width="2.5" fill="none"/>
+                <path d="M30,45 C 200,85 370,5 540,45 C 710,85 880,5 1050,45 C 1130,65 1170,45 1170,45" stroke="url(#dnaGrad2)" stroke-width="2.5" fill="none" opacity=".6"/>
+            </svg>
+            <div class="dna-rope-items dna-items-3">
+                {% for e in non_technical_events %}
+                <div class="dna-item" style="--i:{{ loop.index0 }}">
+                    <div class="dna-string"></div>
+                    <div class="dna-card-wrap">
+                        <div class="dna-card-square" onclick="openEventDetailModal('{{ e.slug }}')">
+                            <span class="card-icon">◉</span>
+                            <img src="/static/images/events/{{ e.slug }}.jpg" onerror="this.onerror=null;this.src='/static/images/events/dummy_event.jpg'" alt="{{ e.name }}">
+                            <div class="img-overlay"></div>
+                        </div>
+                        <div class="hanging-label-string"></div>
+                        <div class="dna-card-label" onclick="openEventDetailModal('{{ e.slug }}')">
+                            <span>{{ e.name }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Split Event Details Modal (Left: Image | Right: About Event) -->
+<div id="eventSplitModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(2,8,23,0.92);backdrop-filter:blur(10px);z-index:99999;justify-content:center;align-items:center;padding:20px;">
+    <div class="event-modal-content">
+        <span onclick="closeEventDetailModal()" style="position:absolute;top:15px;right:20px;font-size:28px;color:#8da0b0;cursor:pointer;z-index:10;">&times;</span>
+        
+        <!-- Left Side: Event Image / Visual -->
+        <div style="position:relative;border-radius:10px;overflow:hidden;border:1px solid #00a9d6;box-shadow:0 0 25px rgba(0,169,214,0.3);min-height:300px;background:#03101f;display:flex;align-items:center;justify-content:center;">
+            <img id="modalEvImg" src="" style="width:100%;height:100%;object-fit:cover;">
+            <span id="modalEvCategoryTag" style="position:absolute;bottom:15px;left:15px;background:rgba(0,169,214,0.25);border:1px solid #00a9d6;color:#fff;font-size:10px;letter-spacing:.15em;padding:5px 12px;border-radius:4px;backdrop-filter:blur(4px);">TECHFINIX      '26</span>
+        </div>
+
+        <!-- Right Side: About Event Details -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+                <small class="micro" id="modalEvCategory" style="color:#00a9d6;display:block;margin-bottom:6px;"></small>
+                <h2 id="modalEvTitle" style="font:700 32px 'Space Grotesk',sans-serif;margin:0 0 12px 0;color:#fff;letter-spacing:-.03em;"></h2>
+                <div id="modalEvMeta" style="font-size:11px;letter-spacing:.12em;color:#d51b88;margin-bottom:14px;font-weight:700;"></div>
+                <p id="modalEvDesc" style="color:#8da0b0;font-size:13px;line-height:1.7;margin-bottom:18px;"></p>
+                <div id="modalEvTheme" style="font-size:11px;color:#00c2b2;margin-bottom:16px;font-weight:600;"></div>
+                <div id="modalEvRounds" style="margin-top:14px;"></div>
+            </div>
+            <div style="margin-top:25px;display:flex;gap:15px;align-items:center;">
+                <a href="#register" onclick="closeEventDetailModal()" class="primary" style="padding:12px 20px;font-size:10px;">REGISTER NOW ↘</a>
+                <button onclick="closeEventDetailModal()" class="btn" style="padding:10px 18px;font-size:10px;">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="technical" class="section technical">
+    <div class="num">03</div>
+    <div class="head">
+        <div><small class="micro">DAY 01 · TECHNICAL</small><h2>SHOWCASE<br><span>YOUR SCIENCE</span></h2></div>
+        <p>Bring your research, ideas and biotechnology innovations to the symposium.</p>
+    </div>
+    <div class="techGrid">
+        {% for e in technical_events %}
+        <article id="event-{{ e.slug }}">
+            <small>0{{ loop.index }} · {{ e.day }}</small>
+            <strong>{{ '⌬' if loop.index0 == 0 else '◫' }}</strong>
+            <h3>{{ e.name.split(' ')[0].upper() }}<br>{{ ' '.join(e.name.split(' ')[1:]).upper() }}</h3>
+            <p>{{ e.description }}</p>
+            <div class="tags"><i>OPEN THEME</i><i>ANY BIOTECH DOMAIN</i></div>
+        </article>
+        {% endfor %}
+</section>
+
+<!-- ================= ISOLATED BIOTECHNOLOGY SCROLL TIMELINE SECTION ================= -->
+<section id="biotech-timeline">
+    <div class="timeline-scroll-area">
+        <div class="timeline-sticky">
+            <!-- Background Image & Dynamic Atmosphere Canvas -->
+            <img class="timeline-background" id="tlParallaxBg" src="/static/images/biotech_section_bg.jpg" alt="Biotech Lab Research Scene">
+            <canvas id="tlAtmosphereCanvas" class="tl-atmosphere-canvas"></canvas>
+            <div class="timeline-overlay"></div>
+            <div class="tl-scanline"></div>
+            
+            <!-- Upper Left Header Banner -->
+            <div class="timeline-header">
+                <div class="mission-tag-pill">
+                    <span class="mission-dot-pulse"></span>
+                    <small class="timeline-kicker">CLASSIFIED RESEARCH MISSION</small>
+                </div>
+                <h2 class="timeline-title">BIOTECHNOLOGY<br><span>JOURNEY</span></h2>
+                <div class="mission-case-tag">TECHFINIX '26 · 2-DAY SYMPOSIUM ROUTE</div>
+            </div>
+
+            <!-- Top-Right Floating Event Card -->
+            <div class="timeline-event-card" id="tlEventCard">
+                <div class="card-laser-scanner"></div>
+                <div class="tl-card-header">
+                    <span class="tl-stop-badge" id="tlStopBadge">WAYPOINT 01 OF 12</span>
+                    <span class="tl-status-tag" id="tlStatusTag">● LIVE PHASES</span>
+                </div>
+                <div class="tl-card-divider"></div>
+                <div class="tl-card-body" id="tlCardBody">
+                    <div class="tl-meta-row">
+                        <span class="tl-day-tag" id="tlDayTag">DAY 01 · TECHNICAL</span>
+                        <span class="tl-time-tag" id="tlTimeTag">⏰ 09:00 AM</span>
+                    </div>
+                    <div class="tl-motif-box">
+                        <span class="tl-motif-icon" id="tlMotifIcon">🧬</span>
+                        <span class="tl-motif-label" id="tlMotifLabel">RESEARCH MISSION</span>
+                    </div>
+                    <h3 class="tl-event-title" id="tlEventTitle">INAUGURATION</h3>
+                    <p class="tl-event-desc" id="tlEventDesc">Opening ceremony celebrating TECHFINIX '26 biotechnology symposium.</p>
+                </div>
+                <div class="tl-card-footer">
+                    <div class="tl-progress-bar"><div class="tl-progress-fill" id="tlProgressFill"></div></div>
+                    <span class="tl-footer-readout" id="tlFooterReadout">MISSION PROGRESS: 8.3%</span>
+                </div>
+            </div>
+
+            <!-- Right-Side HUD Telemetry Monitor Panel -->
+            <div class="tl-hud-monitor">
+                <span class="hud-monitor-title">RESEARCH TELEMETRY</span>
+                <div class="hud-monitor-bar"><div class="hud-monitor-fill" id="hudMonitorFill"></div></div>
+                <div class="hud-monitor-stats">
+                    <span id="hudStatActive">WAYPOINT 01/12</span>
+                    <span id="hudStatPct">8.33%</span>
+                </div>
+            </div>
+
+            <!-- Central Timeline Canvas & SVG Map -->
+            <div class="timeline-map-wrap">
+                <svg id="biotechSvgMap" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid meet" class="tl-svg">
+                    <defs>
+                        <filter id="tl-glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="8" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <filter id="tl-glow-magenta" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="10" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Background Secondary Route (Dim Cyan) -->
+                    <path id="tlRouteBg" class="tl-route-bg" fill="none" stroke="rgba(0, 194, 178, 0.25)" stroke-width="3.5" stroke-dasharray="8,8" />
+
+                    <!-- Active Route (Neon Magenta Glow) -->
+                    <path id="tlRouteActive" class="tl-route-active" fill="none" stroke="#ff00a0" stroke-width="5" filter="url(#tl-glow-magenta)" />
+
+                    <!-- SVG Nodes Container -->
+                    <g id="tlNodesGroup"></g>
+                </svg>
+            </div>
+
+            <!-- Node 12 Valedictory Mission Complete Banner Overlay -->
+            <div class="tl-mission-complete-banner hide" id="tlMissionCompleteBanner">
+                <div class="banner-glass">
+                    <span class="banner-pulse"></span>
+                    <small>VALEDICTORY CEREMONY</small>
+                    <h2>RESEARCH MISSION COMPLETE</h2>
+                    <p>TECHFINIX '26 BIOTECHNOLOGY SYMPOSIUM VICTORIES UNLOCKED</p>
+                    <span class="banner-badge">🏆 CONGRATULATIONS TO ALL PARTICIPANTS</span>
+                </div>
+            </div>
+            
+            <!-- Bottom Scroll Hint -->
+            <div class="tl-scroll-hint">
+                <span>SCROLL DOWN TO ADVANCE BIOTECH MISSION</span>
+                <div class="tl-hint-arrow">↓</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section details">
+    <small class="micro">EVENT INTELLIGENCE</small><h2>THE<br><span>DETAILS</span></h2>
+    <div class="detailGrid">
+        <div><small>ENTRY FEE</small><b>₹300</b><em>EVENT ONLY</em></div>
+        <div><small>WORKSHOP</small><b>₹300</b><em>WORKSHOP ONLY</em></div>
+        <div><small>COMBO</small><b>₹500</b><em>WORKSHOP + EVENT</em></div>
+        <div><small>VENUE</small><b>PAAVAI ENGINEERING COLLEGE</b><em>NAMAKKAL · TAMIL NADU</em></div>
+    </div>
+</section>
+
+<!-- ================= CINEMATIC SCROLL-CONTROLLED BIO BOUNTY SECTION ================= -->
+<section id="bio-bounty-section" class="bio-bounty-scroll-container">
+    <div class="bio-bounty-sticky-viewport">
+        <!-- Biotech Loading Overlay State -->
+        <div id="bountyVideoLoader" class="bounty-loader">
+            <div class="bounty-spinner"></div>
+            <span>INITIALIZING CINEMATIC FEED...</span>
+        </div>
+
+        <!-- Scroll-Controlled Video Element -->
+        <video id="bioBountyScrollVideo" class="bounty-scroll-video" muted playsinline preload="auto">
+            <source src="/static/videos/bio_bounty_scroll.mp4" type="video/mp4">
+        </video>
+
+        <!-- Subtle Vignette Overlay -->
+        <div class="bounty-vignette-overlay"></div>
+
+        <!-- Minimal Prize Pool HUD Overlay -->
+        <div class="bounty-prize-hud">
+            <small>TOTAL PRIZE POOL</small>
+            <h3>₹3,50,000</h3>
+        </div>
+    </div>
+</section>
+
+<section id="register" class="register">
+    <div class="glow"></div>
+    <small class="micro">THE LAB IS WAITING</small><h2>READY TO<br><span>ENTER?</span></h2>
+    <p>Compete globally. Showcase your talent. Learn, network and grow.</p>
+    <a class="primary huge" href="https://forms.gle/kLwLcqCSMhaSJjR69" target="_blank" rel="noopener">REGISTER FOR TECHFINIX '26 <span>↗</span></a>
+    <p class="register-note">Already registered? <a href="{{ url_for('auth.login') }}">Log in</a> to view your event photos once coordinators publish them.</p>
+</section>
+
+<section class="contact">
+    <div><small class="micro">STUDENT COORDINATORS</small><h4>Ms.K. SRI NADHIYA  (IV - Biotech)</h4><p>+91 91508 32493</p><h4>Mr.K.G.TAMIL SELVAN (III - Biotech)</h4><p>+91 63820 72664</p><h4>Mr.M.ELASANTHOSH (II - Biotech)</h4><p>+91 93425 70144</p></div>
+    <div><small class="micro">STAFF COORDINATOR</small><h4>Mrs.T. SARANYA (Assistant Professor, Biotech)</h4><p>+91 63030 81617</p></div>
+    <div><small class="micro">HEAD OF DEPARTMENT</small><h4>DR.C.NIRMALA (Head of Department, Biotech)</h4><p>+91 98435 26815</p></div>
+    </div>
+</section>
+
+</div><!-- End .cinematic-rain-wrapper -->
+
+<!-- ================= CINEMATIC BIOTECHNOLOGY DEVELOPER CREDIT FOOTER ================= -->
+<footer class="techfinix-final-footer" id="techfinixFooter">
+    <!-- Atmospheric Canvas & Vignette -->
+    <canvas id="footerAtmosphereCanvas" class="footer-atmosphere-canvas"></canvas>
+    <div class="footer-vignette-overlay"></div>
+    <div class="footer-molecular-grid"></div>
+    
+    <!-- Center Footer Content Container -->
+    <div class="footer-content-wrap">
+        <!-- Phase 2: Closing Title Card -->
+        <div class="footer-closing-brand" id="footerClosingBrand">
+            <small class="footer-kicker-small">NATIONAL LEVEL BIOTECHNOLOGY SYMPOSIUM</small>
+            <h2 class="footer-brand-title">TECHFINIX <span>'26</span></h2>
+        </div>
+
+        <!-- Phase 3, 4, 5, 6, 7: Developer Credit Sequence -->
+        <div class="footer-developer-credit" id="footerDevCredit">
+            <div class="dev-kicker" id="devKicker">THIS WEBSITE IS DEVELOPED BY</div>
+            
+            <!-- Dominant Developer Name with Molecular Assembly -->
+            <div class="developer-credit-name" id="devNameWrap">
+                <div class="molecular-particles-container" id="molecularParticles"></div>
+                <div class="dna-scan-line" id="dnaScanLine"></div>
+                <div class="light-sweep-beam" id="lightSweepBeam"></div>
+                <div class="dev-name-letters" id="devNameLetters">
+                    <span class="char" data-tx="-80" data-ty="-60" data-rot="-20" data-scale="0.6">J</span>
+                    <span class="char" data-tx="70" data-ty="-80" data-rot="15" data-scale="0.7">A</span>
+                    <span class="char" data-tx="-90" data-ty="60" data-rot="-25" data-scale="0.5">N</span>
+                    <span class="char" data-tx="80" data-ty="70" data-rot="20" data-scale="0.6">A</span>
+                    <span class="char" data-tx="-60" data-ty="-75" data-rot="-15" data-scale="0.7">R</span>
+                    <span class="char" data-tx="75" data-ty="-65" data-rot="18" data-scale="0.6">T</span>
+                    <span class="char" data-tx="-70" data-ty="65" data-rot="-18" data-scale="0.5">H</span>
+                    <span class="char" data-tx="85" data-ty="-60" data-rot="15" data-scale="0.7">A</span>
+                    <span class="char" data-tx="-65" data-ty="70" data-rot="-15" data-scale="0.5">N</span>
+                    <span class="char" data-tx="60" data-ty="-80" data-rot="12" data-scale="0.6">A</span>
+                    <span class="char" data-tx="-80" data-ty="-60" data-rot="-20" data-scale="0.5">N</span>
+                    <span class="char space-letter" data-tx="0" data-ty="0" data-rot="0" data-scale="1">&nbsp;</span>
+                    <span class="char" data-tx="90" data-ty="75" data-rot="22" data-scale="0.6">P</span>
+                </div>
+            </div>
+
+            <!-- Subtitles -->
+            <div class="dev-subtitle-dept" id="devSubDept">FINAL YEAR BIOTECHNOLOGY</div>
+            <div class="dev-subtitle-college" id="devSubCollege">PAAVAI ENGINEERING COLLEGE</div>
+        </div>
+    </div>
+</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="{{url_for('static',filename='js/main.js')}}"></script>
+
+<!-- HTML5 Canvas Rain & Thunder/Lightning Effect Script -->
+<script>
+(function initRainThunderEffect() {
+    const canvas = document.getElementById('rainThunderCanvas');
+    const wrapper = document.querySelector('.cinematic-rain-wrapper');
+    if (!canvas || !wrapper) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+        width = canvas.width = wrapper.offsetWidth || window.innerWidth;
+        height = canvas.height = Math.max(wrapper.scrollHeight, wrapper.offsetHeight, 1500);
+    }
+    window.addEventListener('resize', resize);
+    window.addEventListener('load', resize);
+    setTimeout(resize, 500);
+    resize();
+
+    // 450 Fine Slanted Rain Particles (Matching Reference Image 2)
+    const dropCount = 450;
+    const drops = [];
+    for (let i = 0; i < dropCount; i++) {
+        drops.push({
+            x: Math.random() * (width + 400) - 200,
+            y: Math.random() * height,
+            length: Math.random() * 26 + 14,
+            speed: Math.random() * 17 + 15,
+            opacity: Math.random() * 0.38 + 0.12,
+            wind: -(Math.random() * 2.8 + 2.2) // Slanted diagonally (-18 degrees)
+        });
+    }
+
+    // Thunder / Lightning Flash Variables
+    let flashOpacity = 0;
+    let nextFlashTime = Date.now() + Math.random() * 3000 + 2000;
+    let boltLines = [];
+
+    function triggerLightning() {
+        flashOpacity = Math.random() * 0.35 + 0.22;
+        if (window.playCinematicThunder) window.playCinematicThunder();
+        let startX = Math.random() * width;
+        let currX = startX;
+        let currY = window.scrollY || 0;
+        boltLines = [{ x: currX, y: currY }];
+        let maxVertical = currY + (window.innerHeight * 0.85);
+        while (currY < maxVertical) {
+            currX += Math.random() * 44 - 22;
+            currY += Math.random() * 32 + 18;
+            boltLines.push({ x: currX, y: currY });
+        }
+        nextFlashTime = Date.now() + Math.random() * 4500 + 3000;
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw Fine Slanted Rain Streaks
+        ctx.lineWidth = 0.9;
+        for (let i = 0; i < drops.length; i++) {
+            let d = drops[i];
+            ctx.strokeStyle = `rgba(215, 235, 255, ${d.opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(d.x + d.wind, d.y + d.length);
+            ctx.stroke();
+
+            d.y += d.speed;
+            d.x += d.wind;
+
+            if (d.y > height) {
+                d.y = -d.length;
+                d.x = Math.random() * (width + 400) - 200;
+            }
+        }
+
+        // Check for Lightning Flash
+        if (Date.now() > nextFlashTime) {
+            triggerLightning();
+        }
+
+        // Render Ambient Lightning Flash & Streak
+        if (flashOpacity > 0.005) {
+            ctx.fillStyle = `rgba(200, 230, 255, ${flashOpacity * 0.55})`;
+            ctx.fillRect(0, 0, width, height);
+
+            if (boltLines.length > 1) {
+                ctx.strokeStyle = `rgba(0, 215, 255, ${flashOpacity * 1.8})`;
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.moveTo(boltLines[0].x, boltLines[0].y);
+                for (let j = 1; j < boltLines.length; j++) {
+                    ctx.lineTo(boltLines[j].x, boltLines[j].y);
+                }
+                ctx.stroke();
+            }
+
+            flashOpacity *= 0.85;
+        } else {
+            boltLines = [];
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+})();
+</script>
+
+<script>
+const EVENT_DATA = {
+    {% for e in (technical_events + non_technical_events) %}
+    "{{ e.slug }}": {
+        "slug": {{ e.slug|tojson }},
+        "name": {{ e.name|tojson }},
+        "category": {{ (e.category|replace('_', ' ')|upper)|tojson }},
+        "day": {{ e.day|tojson }},
+        "description": {{ e.description|tojson }},
+        "duration": {{ (e.duration or e.team_size or '')|tojson }},
+        "rounds": {{ e.rounds|tojson if e.rounds else '[]' }},
+        "tasks": {{ e.tasks|tojson if e.tasks else '[]' }},
+        "theme": {{ (e.theme_note or 'Open theme — any biotechnology domain.')|tojson }},
+        "image": {{ (e.image or ('/static/images/events/' ~ e.slug ~ '.jpg'))|tojson }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+};
+
+function openEventDetailModal(slug) {
+    const data = EVENT_DATA[slug];
+    if(!data) return;
+    document.getElementById('modalEvTitle').textContent = data.name;
+    document.getElementById('modalEvCategory').textContent = data.category + ' · ' + data.day;
+    document.getElementById('modalEvDesc').textContent = data.description;
+    document.getElementById('modalEvMeta').textContent = data.duration ? ('DURATION / TEAM: ' + data.duration) : '';
+    document.getElementById('modalEvTheme').textContent = 'THEME: ' + data.theme;
+    
+    const imgElem = document.getElementById('modalEvImg');
+    imgElem.src = data.image;
+    imgElem.onerror = function(){ this.src = '/static/images/events/dummy_event.jpg'; };
+    
+    const roundsWrap = document.getElementById('modalEvRounds');
+    roundsWrap.innerHTML = '';
+    if(data.rounds && data.rounds.length > 0) {
+        let html = '<small style="color:#00a9d6;font-weight:700;display:block;margin-bottom:8px;letter-spacing:.12em;">EVENT ROUNDS</small>';
+        data.rounds.forEach((r, idx) => {
+            html += `<div style="margin-bottom:10px;padding-left:10px;border-left:2px solid #00a9d6;">
+                <strong style="color:#fff;font-size:12px;display:block;">ROUND ${idx+1}: ${r.title || ''}</strong>
+                <p style="color:#8da0b0;font-size:11px;margin:2px 0 0 0;line-height:1.5;">${r.description || ''}</p>
+            </div>`;
+        });
+        roundsWrap.innerHTML = html;
+    } else if(data.tasks && data.tasks.length > 0) {
+        let html = '<small style="color:#00a9d6;font-weight:700;display:block;margin-bottom:8px;letter-spacing:.12em;">PARTICIPANT TASKS</small><ul style="padding-left:16px;color:#8da0b0;font-size:11px;margin:0;line-height:1.6;">';
+        data.tasks.forEach(t => {
+            html += `<li>${t}</li>`;
+        });
+        html += '</ul>';
+        roundsWrap.innerHTML = html;
+    }
+    
+    document.getElementById('eventSplitModal').style.display = 'flex';
+}
+
+function closeEventDetailModal() {
+    document.getElementById('eventSplitModal').style.display = 'none';
+}
+
+document.getElementById('eventSplitModal')?.addEventListener('click', function(e){
+    if(e.target === this) closeEventDetailModal();
+});
+
+// ================= ISOLATED BIOTECHNOLOGY TIMELINE ENGINE =================
+(function initBiotechTimelineEngine() {
+    const timelineSection = document.getElementById('biotech-timeline');
+    const routeBg = document.getElementById('tlRouteBg');
+    const routeActive = document.getElementById('tlRouteActive');
+    const nodesGroup = document.getElementById('tlNodesGroup');
+    const atmosphereCanvas = document.getElementById('tlAtmosphereCanvas');
+    const missionBanner = document.getElementById('tlMissionCompleteBanner');
+    if (!timelineSection || !routeBg || !routeActive || !nodesGroup) return;
+
+    // Particle Atmosphere Canvas Animation Engine
+    if (atmosphereCanvas) {
+        const ctx = atmosphereCanvas.getContext('2d');
+        let width = atmosphereCanvas.width = timelineSection.offsetWidth || window.innerWidth;
+        let height = atmosphereCanvas.height = window.innerHeight;
+
+        const particles = Array.from({ length: 45 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 2 + 0.8,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.6 + 0.2,
+            color: Math.random() > 0.4 ? '#00c2b2' : '#ff00a0'
+        }));
+
+        function drawAtmosphere() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawAtmosphere);
+        }
+        drawAtmosphere();
+
+        window.addEventListener('resize', () => {
+            width = atmosphereCanvas.width = timelineSection.offsetWidth || window.innerWidth;
+            height = atmosphereCanvas.height = window.innerHeight;
+        });
+    }
+
+    // 12 Authentic TECHFINIX Event Waypoints
+    const biotechTimelineEvents = [
+        { id: 1, x: 70, y: 360, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "08:30 AM", title: "REGISTRATION", icon: "🏛️", motif: "SYMPOSIUM OPENING", description: "Register for the TECHFINIX '26 biotechnology symposium." },
+        { id: 2, x: 190, y: 230, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "10:00 AM", title: "INAUGURATION", icon: "📄", motif: "SYMPOSIUM OPENING", description: "Inauguration ceremony for the TECHFINIX '26 biotechnology symposium." },
+        { id: 3, x: 310, y: 360, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "11:00 AM", title: "PAPER PRESENTATION", icon: "📄", motif: "RESEARCH DISCOVERIES", description: "Presenting cutting-edge research, concepts and discoveries in biotechnology." },
+        { id: 4, x: 430, y: 230, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "11:30 AM", title: "PROJECT EXPO", icon: "🔬", motif: "BIOTECH PROTOTYPES", description: "Showcasing working biological prototypes, lab models and research innovations." },
+        { id: 5, x: 550, y: 360, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "01:00 PM", title: "LUNCH", icon: "🧪", motif: "LUNCH BREAK", description: "Enjoy a delicious lunch and network with fellow attendees." },
+        { id: 6, x: 670, y: 230, day: "DAY 01", type: "TECHNICAL", date: "07 NOV 2026", time: "02:00 PM", title: "PROJECT EXPO & PAPER PRESENTATION", icon: "🔬", motif: "BIOTECH PROTOTYPES", description: "Showcasing working biological prototypes, lab models and research innovations." },
+        { id: 7, x: 790, y: 360, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "10:00 AM", title: "EXPERIMENTAL DETECTION", icon: "🎲", motif: "QUICK DISCOVERY", description: "An engaging activity to identify and analyze experimental setups." },
+        { id: 8, x: 910, y: 230, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "11:30 AM", title: "BIOMOLECULES PUZZLE", icon: "🎨", motif: "PUZZLE", description: "Decoding the mysteries of biomolecules through a challenging puzzle-solving event." },
+        { id: 9, x: 1030, y: 360, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "01:00 PM", title: "LUNCH", icon: "💡", motif: "LUNCH BREAK", description: "Enjoy a delicious lunch and network with fellow attendees." },
+        { id: 10, x: 1150, y: 230, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "02:00 PM", title: "DOCKING CHALLENGE", icon: "🔗", motif: "FIND THE BEST DRUG", description: "A challenging competition to find the best drug candidates." },
+        { id: 11, x: 1270, y: 360, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "04:00 PM", title: "VALEDICTORY", icon: "🏆", motif: "MISSION COMPLETE", description: "Closing ceremony celebrating student achievements, awards, and participation." },
+        { id: 12, x: 1390, y: 230, day: "DAY 02", type: "NON-TECHNICAL", date: "08 NOV 2026", time: "05:00 PM", title: "CERTIFICATE DISTRIBUTION AND THANK YOU", icon: "🔍", motif: "CERTIFICATE", description: "Certificate distribution and thank you ceremony." }
+    ];
+
+    // Build Smooth Cubic Bezier Route Path
+    function generatePathString(nodes) {
+        let d = `M ${nodes[0].x} ${nodes[0].y}`;
+        for (let i = 0; i < nodes.length - 1; i++) {
+            const p0 = nodes[i];
+            const p1 = nodes[i + 1];
+            const cp1x = p0.x + (p1.x - p0.x) * 0.5;
+            const cp1y = p0.y;
+            const cp2x = p0.x + (p1.x - p0.x) * 0.5;
+            const cp2y = p1.y;
+            d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+        }
+        return d;
+    }
+
+    const pathD = generatePathString(biotechTimelineEvents);
+    routeBg.setAttribute('d', pathD);
+    routeActive.setAttribute('d', pathD);
+
+    // Render SVG Nodes
+    nodesGroup.innerHTML = '';
+    biotechTimelineEvents.forEach((ev, idx) => {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", `tl-node-group ${idx === 0 ? 'active' : ''}`);
+        g.setAttribute("id", `tlNode-${idx}`);
+
+        // Pulse Aura Ring
+        const pulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        pulse.setAttribute("cx", ev.x);
+        pulse.setAttribute("cy", ev.y);
+        pulse.setAttribute("r", "13.5");
+        pulse.setAttribute("class", "tl-node-pulse");
+
+        // Core Circle Node
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", ev.x);
+        circle.setAttribute("cy", ev.y);
+        circle.setAttribute("r", "8.5");
+        circle.setAttribute("class", "tl-node-circle");
+        circle.addEventListener('click', () => updateActiveCard(idx));
+
+        // Label
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", ev.x);
+        label.setAttribute("y", ev.y + (ev.y > 300 ? -22 : 36));
+        label.setAttribute("class", "tl-node-label");
+        label.textContent = `${ev.id < 10 ? '0' + ev.id : ev.id}. ${ev.title}`;
+
+        g.appendChild(pulse);
+        g.appendChild(circle);
+        g.appendChild(label);
+        nodesGroup.appendChild(g);
+    });
+
+    const totalPathLength = routeActive.getTotalLength();
+    routeActive.style.strokeDasharray = totalPathLength;
+    routeActive.style.strokeDashoffset = totalPathLength;
+
+    let currentActiveIdx = -1;
+
+    function updateActiveCard(index) {
+        if (index < 0 || index >= biotechTimelineEvents.length || index === currentActiveIdx) return;
+        currentActiveIdx = index;
+
+        // Active node visual update
+        biotechTimelineEvents.forEach((_, i) => {
+            const nodeG = document.getElementById(`tlNode-${i}`);
+            if (nodeG) {
+                if (i === index) nodeG.classList.add('active');
+                else nodeG.classList.remove('active');
+            }
+        });
+
+        // Floating Card Updates
+        const ev = biotechTimelineEvents[index];
+        const cardBody = document.getElementById('tlCardBody');
+        const stopBadge = document.getElementById('tlStopBadge');
+        const dayTag = document.getElementById('tlDayTag');
+        const timeTag = document.getElementById('tlTimeTag');
+        const motifIcon = document.getElementById('tlMotifIcon');
+        const motifLabel = document.getElementById('tlMotifLabel');
+        const titleElem = document.getElementById('tlEventTitle');
+        const descElem = document.getElementById('tlEventDesc');
+        const progressFill = document.getElementById('tlProgressFill');
+        const footerReadout = document.getElementById('tlFooterReadout');
+        const hudFill = document.getElementById('hudMonitorFill');
+        const hudActive = document.getElementById('hudStatActive');
+        const hudStatPct = document.getElementById('hudStatPct');
+
+        if (cardBody) {
+            cardBody.style.opacity = '0';
+            cardBody.style.transform = 'translateY(-6px)';
+            cardBody.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+
+            setTimeout(() => {
+                const pctVal = (((index + 1) / biotechTimelineEvents.length) * 100).toFixed(1);
+                if (stopBadge) stopBadge.textContent = `WAYPOINT ${ev.id < 10 ? '0' + ev.id : ev.id} OF 12`;
+                if (dayTag) {
+                    dayTag.textContent = `${ev.day} · ${ev.type}`;
+                    if (ev.day === "DAY 02") {
+                        dayTag.style.borderColor = "rgba(213, 27, 136, 0.55)";
+                        dayTag.style.color = "#ff52be";
+                        dayTag.style.background = "rgba(213, 27, 136, 0.2)";
+                    } else {
+                        dayTag.style.borderColor = "rgba(0, 194, 178, 0.45)";
+                        dayTag.style.color = "#00c2b2";
+                        dayTag.style.background = "rgba(0, 194, 178, 0.15)";
+                    }
+                }
+                if (timeTag) timeTag.textContent = `⏰ ${ev.time}`;
+                if (motifIcon) motifIcon.textContent = ev.icon;
+                if (motifLabel) motifLabel.textContent = ev.motif;
+                if (titleElem) titleElem.textContent = ev.title;
+                if (descElem) descElem.textContent = ev.description;
+                if (progressFill) progressFill.style.width = `${pctVal}%`;
+                if (footerReadout) footerReadout.textContent = `MISSION PROGRESS: ${pctVal}%`;
+                if (hudFill) hudFill.style.width = `${pctVal}%`;
+                if (hudActive) hudActive.textContent = `WAYPOINT ${ev.id < 10 ? '0' + ev.id : ev.id}/12`;
+                if (hudStatPct) hudStatPct.textContent = `${pctVal}%`;
+
+                // Valedictory Mission Complete Banner Trigger
+                if (missionBanner) {
+                    if (index === 11) missionBanner.classList.remove('hide');
+                    else missionBanner.classList.add('hide');
+                }
+
+                cardBody.style.opacity = '1';
+                cardBody.style.transform = 'translateY(0)';
+            }, 180);
+        }
+    }
+
+    updateActiveCard(0);
+
+    // Scroll Progress Handler & LERP Smoothing
+    function updateProgress(progress) {
+        const p = Math.min(Math.max(progress, 0), 1);
+        const drawOffset = totalPathLength * (1 - p);
+        routeActive.style.strokeDashoffset = drawOffset;
+
+        const activeIdx = Math.min(
+            Math.floor(p * biotechTimelineEvents.length),
+            biotechTimelineEvents.length - 1
+        );
+        updateActiveCard(activeIdx);
+    }
+
+    function onNativeScroll() {
+        const rect = timelineSection.getBoundingClientRect();
+        const scrollableHeight = timelineSection.offsetHeight - window.innerHeight;
+        if (scrollableHeight <= 0) return;
+
+        const scrolled = -rect.top;
+        const progress = scrolled / scrollableHeight;
+        updateProgress(progress);
+    }
+
+    window.addEventListener('scroll', onNativeScroll, { passive: true });
+    window.addEventListener('resize', onNativeScroll);
+    setTimeout(onNativeScroll, 200);
+
+    function setupGSAP() {
+        if (window.gsap && window.ScrollTrigger) {
+            gsap.registerPlugin(ScrollTrigger);
+            ScrollTrigger.getAll().forEach(t => {
+                if (t.vars && t.vars.trigger === "#biotech-timeline") t.kill();
+            });
+            ScrollTrigger.create({
+                trigger: "#biotech-timeline",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 0.5,
+                onUpdate: (self) => updateProgress(self.progress)
+            });
+        }
+    }
+
+    if (window.gsap && window.ScrollTrigger) setupGSAP();
+    else window.addEventListener('load', setupGSAP);
+})();
+
+// ================= BIOTECHNOLOGY MOLECULAR ASSEMBLY DEVELOPER CREDIT ANIMATION =================
+(function initDeveloperCreditAnimation() {
+    const footer = document.getElementById('techfinixFooter');
+    const atmosphereCanvas = document.getElementById('footerAtmosphereCanvas');
+    const devWrap = document.getElementById('devNameWrap');
+    const particlesContainer = document.getElementById('molecularParticles');
+    const scanLine = document.getElementById('dnaScanLine');
+    const lightBeam = document.getElementById('lightSweepBeam');
+    const chars = document.querySelectorAll('#devNameWrap .char');
+
+    if (!devWrap || !chars.length) return;
+
+    // Full Footer Background Atmospheric Particle Canvas (140 Bioluminescent Particles)
+    if (atmosphereCanvas && footer) {
+        const ctx = atmosphereCanvas.getContext('2d');
+        let width = atmosphereCanvas.width = footer.offsetWidth || window.innerWidth;
+        let height = atmosphereCanvas.height = footer.offsetHeight || 600;
+        let tick = 0;
+
+        const bgParticles = Array.from({ length: 140 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 2.8 + 0.8,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.45,
+            baseAlpha: Math.random() * 0.55 + 0.25,
+            pulseSpeed: Math.random() * 0.03 + 0.015,
+            color: Math.random() > 0.45 ? '#00c2b2' : '#ff00a0'
+        }));
+
+        function drawFooterAtmosphere() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            tick += 0.02;
+
+            bgParticles.forEach(p => {
+                p.x += p.vx + Math.sin(tick + p.x * 0.01) * 0.2;
+                p.y += p.vy + Math.cos(tick + p.y * 0.01) * 0.2;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                const curAlpha = p.baseAlpha + Math.sin(tick * p.pulseSpeed * 10) * 0.2;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(Math.min(curAlpha, 0.95), 0.15);
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawFooterAtmosphere);
+        }
+        drawFooterAtmosphere();
+
+        window.addEventListener('resize', () => {
+            width = atmosphereCanvas.width = footer.offsetWidth || window.innerWidth;
+            height = atmosphereCanvas.height = footer.offsetHeight || 600;
+        });
+    }
+
+    // Accessibility: Check prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        devWrap.classList.add('reduced-motion');
+        chars.forEach(c => {
+            c.style.opacity = '1';
+            c.style.transform = 'none';
+            c.style.filter = 'none';
+        });
+        return;
+    }
+
+    let hasAnimated = false;
+
+    function runAssemblySequence() {
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        // PHASE 1 — Molecular Particle Formation (75 tiny cyan/magenta particles behind text)
+        if (particlesContainer) {
+            particlesContainer.innerHTML = '';
+            for (let i = 0; i < 75; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 3.0 + 1.2;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.top = `${Math.random() * 100}%`;
+                p.style.background = Math.random() > 0.4 ? '#00c2b2' : '#ff00a0';
+                p.style.opacity = (Math.random() * 0.5 + 0.25).toString();
+                particlesContainer.appendChild(p);
+            }
+        }
+
+        // PHASE 2 — Individual Letter Assembly (Controlled staggered spatial assembly)
+        chars.forEach((charEl, idx) => {
+            const tx = charEl.getAttribute('data-tx') || '0';
+            const ty = charEl.getAttribute('data-ty') || '0';
+            const rot = charEl.getAttribute('data-rot') || '0';
+            const scale = charEl.getAttribute('data-scale') || '0.6';
+
+            if (window.gsap) {
+                gsap.fromTo(charEl, 
+                    { opacity: 0, x: parseFloat(tx), y: parseFloat(ty), rotation: parseFloat(rot), scale: parseFloat(scale), filter: 'blur(6px)' },
+                    { opacity: 1, x: 0, y: 0, rotation: 0, scale: 1, filter: 'blur(0px)', duration: 1.8, delay: idx * 0.07, ease: 'power2.out' }
+                );
+            } else {
+                charEl.style.transition = `all 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) ${idx * 0.07}s`;
+                charEl.style.opacity = '1';
+                charEl.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
+                charEl.style.filter = 'blur(0px)';
+            }
+        });
+
+        const totalLetterDuration = (chars.length * 0.07 + 1.8) * 1000;
+
+        // PHASE 3 — Molecular Lock (300ms pause & subtle lock settlement)
+        setTimeout(() => {
+            devWrap.classList.add('molecular-locked');
+
+            // PHASE 4 & 5 — DNA Cyan Scan (1.5px cyan line sweeps LEFT -> RIGHT with character highlights)
+            setTimeout(() => {
+                if (scanLine) {
+                    scanLine.style.opacity = '1';
+                    if (window.gsap) {
+                        gsap.fromTo(scanLine,
+                            { left: '0%' },
+                            { left: '100%', duration: 1.4, ease: 'power1.inOut', onComplete: () => { scanLine.style.opacity = '0'; } }
+                        );
+                    } else {
+                        scanLine.style.transition = 'left 1.4s ease-in-out';
+                        scanLine.style.left = '100%';
+                        setTimeout(() => { scanLine.style.opacity = '0'; }, 1400);
+                    }
+
+                    // Stagger character cyan highlight during scan
+                    chars.forEach((c, idx) => {
+                        setTimeout(() => {
+                            c.classList.add('char-scan-highlight');
+                            setTimeout(() => { c.classList.remove('char-scan-highlight'); }, 300);
+                        }, idx * 90);
+                    });
+                }
+
+                // PHASE 6 — Final Idle State & Occasional Light Sweep
+                setTimeout(() => {
+                    devWrap.classList.add('idle-breathing');
+
+                    // Occasional subtle light sweep every 8.5 seconds
+                    setInterval(() => {
+                        if (lightBeam) {
+                            lightBeam.classList.remove('active-sweep');
+                            void lightBeam.offsetWidth;
+                            lightBeam.classList.add('active-sweep');
+                        }
+                    }, 8500);
+                }, 1600);
+
+            }, 300);
+
+        }, totalLetterDuration);
+    }
+
+    // Viewport IntersectionObserver Trigger
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (footer) footer.classList.add('is-active');
+                    runAssemblySequence();
+                    observer.unobserve(devWrap);
+                }
+            });
+        }, { threshold: 0.15 });
+        observer.observe(devWrap);
+    } else {
+        if (footer) footer.classList.add('is-active');
+        runAssemblySequence();
+    }
+})();
+
+// ================= MILD RAIN & THUNDER WEB AUDIO SYNTHESIZER =================
+(function initRainThunderAudioEngine() {
+    let audioCtx = null;
+    let rainGainNode = null;
+    let isAudioPlaying = false;
+    let rainNoiseNode = null;
+    let thunderTimer = null;
+
+    function createAudioContext() {
+        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx && AudioCtxClass) {
+            audioCtx = new AudioCtxClass();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    // 1. Mild Rain Sound Generator (Filtered Pink Noise with Soft Bandpass)
+    function startMildRainSound() {
+        if (!audioCtx) return;
+
+        const bufferSize = audioCtx.sampleRate * 3;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+        // Generate Pink Noise
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            b3 = 0.86650 * b3 + white * 0.3104856;
+            b4 = 0.55000 * b4 + white * 0.5329522;
+            b5 = -0.7616 * b5 - white * 0.0168980;
+            output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+            output[i] *= 0.06; // Soft, comfortable ambient volume
+            b6 = white * 0.115926;
+        }
+
+        rainNoiseNode = audioCtx.createBufferSource();
+        rainNoiseNode.buffer = noiseBuffer;
+        rainNoiseNode.loop = true;
+
+        // Bandpass Filter centered at 1400Hz for mild rain patter
+        const bandpass = audioCtx.createBiquadFilter();
+        bandpass.type = 'bandpass';
+        bandpass.frequency.value = 1400;
+        bandpass.Q.value = 0.8;
+
+        // Highpass Filter to remove muddy low frequencies
+        const highpass = audioCtx.createBiquadFilter();
+        highpass.type = 'highpass';
+        highpass.frequency.value = 400;
+
+        rainGainNode = audioCtx.createGain();
+        rainGainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+        rainNoiseNode.connect(bandpass);
+        bandpass.connect(highpass);
+        highpass.connect(rainGainNode);
+        rainGainNode.connect(audioCtx.destination);
+
+        rainNoiseNode.start(0);
+    }
+
+    // 2. Thunder Sound Generator (Deep Brown Noise + Lowpass Sub Envelope)
+    function triggerCinematicThunderSound() {
+        if (!audioCtx || !isAudioPlaying) return;
+
+        const dur = 3.5;
+        const bufferSize = audioCtx.sampleRate * dur;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+
+        // Deep Brown Noise Generator
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            output[i] = (lastOut + (0.02 * white)) / 1.02;
+            lastOut = output[i];
+            output[i] *= 3.5;
+        }
+
+        const thunderSource = audioCtx.createBufferSource();
+        thunderSource.buffer = noiseBuffer;
+
+        // Lowpass filter at 110Hz for deep sub-bass thunder rumble
+        const lowpass = audioCtx.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.value = 110;
+
+        const thunderGain = audioCtx.createGain();
+        const now = audioCtx.currentTime;
+
+        // Envelope: Sharp initial strike -> deep rumbling decay
+        thunderGain.gain.setValueAtTime(0.0, now);
+        thunderGain.gain.linearRampToValueAtTime(0.24, now + 0.15);
+        thunderGain.gain.exponentialRampToValueAtTime(0.07, now + 1.2);
+        thunderGain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+        thunderSource.connect(lowpass);
+        lowpass.connect(thunderGain);
+        thunderGain.connect(audioCtx.destination);
+
+        thunderSource.start(now);
+        thunderSource.stop(now + dur);
+    }
+
+    function scheduleThunder() {
+        if (thunderTimer) clearTimeout(thunderTimer);
+        const nextInterval = (14 + Math.random() * 14) * 1000;
+        thunderTimer = setTimeout(() => {
+            if (isAudioPlaying) {
+                triggerCinematicThunderSound();
+                scheduleThunder();
+            }
+        }, nextInterval);
+    }
+
+    function startAudioEffect() {
+        if (isAudioPlaying) return;
+        createAudioContext();
+
+        if (audioCtx) {
+            isAudioPlaying = true;
+            startMildRainSound();
+            scheduleThunder();
+            setTimeout(triggerCinematicThunderSound, 800);
+        }
+    }
+
+    // Auto-start audio effect on any initial user interaction
+    ['click', 'scroll', 'mousemove', 'keydown', 'touchstart'].forEach(evt => {
+        window.addEventListener(evt, startAudioEffect, { once: true });
+    });
+
+    // Try starting immediately on load if browser policy permits
+    window.addEventListener('load', startAudioEffect);
+
+    // Expose trigger globally so canvas lightning flashes sync with thunder audio
+    window.playCinematicThunder = triggerCinematicThunderSound;
+})();
+
+// ================= SCROLL-CONTROLLED BIO BOUNTY VIDEO SCRUBBER =================
+(function initBioBountyScrollScrubber() {
+    const section = document.getElementById('bio-bounty-section');
+    const video = document.getElementById('bioBountyScrollVideo');
+    const loader = document.getElementById('bountyVideoLoader');
+
+    if (!section || !video) return;
+
+    let targetTime = 0;
+    let smoothedTime = 0;
+    let duration = 0;
+    let isVideoReady = false;
+
+    // Ensure video stays strictly paused
+    video.pause();
+
+    function onMetadataLoaded() {
+        if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+            duration = video.duration;
+            isVideoReady = true;
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+            updateScrollProgress();
+        }
+    }
+
+    video.addEventListener('loadedmetadata', onMetadataLoaded);
+    video.addEventListener('canplay', onMetadataLoaded);
+
+    if (video.readyState >= 1) {
+        onMetadataLoaded();
+    }
+
+    function updateScrollProgress() {
+        const sectionRect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        const totalScrollable = sectionHeight - viewportHeight;
+        if (totalScrollable <= 0) return;
+
+        const scrolled = -sectionRect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+
+        if (duration > 0) {
+            targetTime = progress * duration;
+        }
+    }
+
+    // 60FPS LERP Render Loop for Butter-Smooth Scrubbing
+    function renderLoop() {
+        if (isVideoReady && duration > 0) {
+            const diff = targetTime - smoothedTime;
+            if (Math.abs(diff) > 0.003) {
+                // Smooth fluid dampening factor
+                smoothedTime += diff * 0.18;
+
+                if (!video.seeking) {
+                    if (typeof video.fastSeek === 'function') {
+                        video.fastSeek(smoothedTime);
+                    } else {
+                        video.currentTime = smoothedTime;
+                    }
+                }
+            }
+        }
+        requestAnimationFrame(renderLoop);
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+
+    updateScrollProgress();
+    requestAnimationFrame(renderLoop);
+})();
+
+// ================= LIVE BIO-RESEARCH MISSION COUNTDOWN SCRIPT =================
+(function initTechfinixMissionCountdown() {
+    // Target: 10 September 2026 at 10:00:00 AM IST (UTC+5:30)
+    const targetDate = new Date('2026-09-10T10:00:00+05:30').getTime();
+
+    const daysEl = document.getElementById('cdDays');
+    const hoursEl = document.getElementById('cdHours');
+    const minutesEl = document.getElementById('cdMinutes');
+    const secondsEl = document.getElementById('cdSeconds');
+    const statusMsg = document.getElementById('countdownStatusMsg');
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            if (daysEl) daysEl.textContent = '00';
+            if (hoursEl) hoursEl.textContent = '00';
+            if (minutesEl) minutesEl.textContent = '00';
+            if (secondsEl) secondsEl.textContent = '00';
+            if (statusMsg) {
+                statusMsg.textContent = 'THE MISSION HAS BEGUN';
+                statusMsg.style.color = '#00c2b2';
+                statusMsg.style.fontWeight = '700';
+            }
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+})();
+</script>
+</body></html>

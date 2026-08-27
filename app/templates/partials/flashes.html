@@ -1,0 +1,28 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-stack" id="flashStack">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+          <span>{{ message }}</span>
+          <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+        </div>
+      {% endfor %}
+    </div>
+    <script>
+      setTimeout(function() {
+        var stack = document.getElementById('flashStack');
+        if (stack) {
+          var items = stack.getElementsByClassName('flash');
+          for (var i = 0; i < items.length; i++) {
+            (function(el) {
+              el.style.transition = 'all 0.5s ease';
+              el.style.opacity = '0';
+              el.style.transform = 'translateX(30px)';
+              setTimeout(function() { if (el && el.parentNode) el.parentNode.removeChild(el); }, 500);
+            })(items[i]);
+          }
+        }
+      }, 4000);
+    </script>
+  {% endif %}
+{% endwith %}
