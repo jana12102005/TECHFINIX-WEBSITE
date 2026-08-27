@@ -38,18 +38,21 @@ def create_app():
 
 def _bootstrap_admin(app, db):
     from .services.security import hash_password
-    # 1) Super Coordinator
-    if db.users.count_documents({"role": "super_coordinator"}) == 0:
-        db.users.insert_one({
-            "username": app.config["BOOTSTRAP_ADMIN_USERNAME"],
-            "password_hash": hash_password(app.config["BOOTSTRAP_ADMIN_PASSWORD"]),
-            "role": "super_coordinator",
-            "name": "Super Coordinator",
-            "assigned_events": [],
-        })
-        app.logger.info(
-            f"Created bootstrap super coordinator '{app.config['BOOTSTRAP_ADMIN_USERNAME']}'."
+
+    coords = db["coordinators"]
+    if coords.count_documents({}) == 0:
+        username = app.config.get("ADMIN_USER", "admin")
+        password = app.config.get("ADMIN_PASS", "admin123")
+        coords.insert_one(
+            {
+                "username": username,
+                "password_hash": hash_password(password),
+                "name": "System Administrator",
+                "role": "admin",
+                "assigned_event_slug": "*",
+            }
         )
+        app.logger.info("Created default bootstrap admin coordinator.")
 
     # 2) Event Coordinator Demo Account
     if db.users.count_documents({"username": "biotech_coord"}) == 0:
@@ -72,3 +75,6 @@ def _bootstrap_admin(app, db):
             "event": "experiment-detection",
             "team": "BioDetectives (Team A)",
         })
+
+
+app = create_app()
