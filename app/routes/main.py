@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 import os
-from flask import Blueprint, render_template, send_from_directory
+from flask import Blueprint, current_app, render_template, send_from_directory
 
 from ..services.mongodb import get_db
 
@@ -127,9 +127,13 @@ def _ensure_events_exist(db):
 
 @bp.route("/")
 def index():
-    db = get_db()
-    _ensure_events_exist(db)
-    events = list(db.events.find({}).sort("order", 1))
+    try:
+        db = get_db()
+        _ensure_events_exist(db)
+        events = list(db.events.find({}).sort("order", 1))
+    except Exception as exc:
+        current_app.logger.warning(f"[main.index] DB event fetch fallback: {exc}")
+        events = DEFAULT_EVENTS
     technical = [e for e in events if e.get("category") == "technical"]
     non_technical = [e for e in events if e.get("category") == "non_technical"]
     return render_template(
