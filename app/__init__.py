@@ -75,6 +75,3 @@ def _bootstrap_admin(app, db):
             "event": "experiment-detection",
             "team": "BioDetectives (Team A)",
         })
-
-
-app = create_app()

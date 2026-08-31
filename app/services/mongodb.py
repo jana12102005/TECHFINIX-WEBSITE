@@ -15,27 +15,27 @@ live in Flask's per-request `g`, because a fresh mongomock.MongoClient()
 is a brand new empty in-memory database — caching only in `g` would wipe
 "seeded" data on literally every single request.
 """
+import os
 import sys
 from flask import current_app, g
 
 
+def _is_production_environment():
+    return bool(
+        os.environ.get("VERCEL")
+        or os.environ.get("FLASK_ENV") == "production"
+        or os.environ.get("ENV") == "production"
+    )
+
+
 def _get_or_create_client(app):
     if "mongo_client" in app.extensions:
-        # Check if cached client is still healthy
         client = app.extensions["mongo_client"]
         backend = app.extensions["mongo_backend"]
-        if backend == "atlas":
-            try:
-                client.admin.command("ping")
-                return client, backend
-            except Exception:
-                app.logger.warning("[mongodb] Cached Atlas connection ping failed. Re-evaluating connection...")
-                app.extensions.pop("mongo_client", None)
-        else:
-            return client, backend
+        return client, backend
 
     uri = app.config.get("MONGODB_URI")
-    db_name = app.config.get("MONGODB_DB")
+    db_name = app.config.get("MONGODB_DB", "techfinix26")
 
     if uri:
         try:
@@ -52,9 +52,24 @@ def _get_or_create_client(app):
             app.logger.info(f"[mongodb] Successfully connected to MongoDB Atlas, db='{db_name}'.")
             return client, "atlas"
         except Exception as exc:  # noqa: BLE001
-            print(f"[mongodb] Could not reach MONGODB_URI ({exc}); "
-                  f"falling back to in-memory mongomock for local dev.",
-                  file=sys.stderr)
+            app.logger.error(f"[mongodb] CRITICAL: Failed to connect to MongoDB Atlas: {exc}")
+            if _is_production_environment():
+                raise RuntimeError(
+                    f"MongoDB Atlas connection failed in production environment: {exc}. "
+                    f"Please check MONGODB_URI in Vercel project environment settings and verify "
+                    f"that MongoDB Atlas Network Access includes 0.0.0.0/0."
+                ) from exc
+            print(
+                f"[mongodb] Could not reach MONGODB_URI ({exc}); falling back to in-memory mongomock for local dev.",
+                file=sys.stderr,
+            )
+
+    if _is_production_environment():
+        app.logger.error("[mongodb] CRITICAL: MONGODB_URI environment variable is missing in production deployment!")
+        raise RuntimeError(
+            "MONGODB_URI environment variable is not configured in Vercel environment settings. "
+            "Please add MONGODB_URI under Project Settings -> Environment Variables in Vercel."
+        )
 
     try:
         import mongomock
@@ -68,8 +83,7 @@ def _get_or_create_client(app):
     app.extensions["mongo_client"] = client
     app.extensions["mongo_backend"] = "mongomock"
     app.logger.warning(
-        "[mongodb] MONGODB_URI not reachable — using in-memory mongomock. "
-        "Data resets every time the process restarts."
+        "[mongodb] MONGODB_URI not set or unreachable — using in-memory mongomock for local dev."
     )
     return client, "mongomock"
 
