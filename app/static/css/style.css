@@ -2405,79 +2405,34 @@ body.results-command-body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
   
-  /* Mobile Biotech Timeline Section Optimization (No Overlap Flow) */
+  /* Hide Timeline Section on Mobile View (Desktop Untouched) */
   #biotech-timeline {
-    padding: 20px 0 40px !important;
-    position: relative !important;
-  }
-  #biotech-timeline .timeline-scroll-area {
-    height: auto !important;
-  }
-  #biotech-timeline .timeline-sticky {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    height: auto !important;
-    min-height: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-  #biotech-timeline .timeline-background {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-  #biotech-timeline .timeline-header {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    padding: 24px 16px 10px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  #biotech-timeline .timeline-title {
-    font-size: clamp(24px, 6.5vw, 36px) !important;
-  }
-  #biotech-timeline .timeline-event-card {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    left: auto !important;
-    width: 92% !important;
-    max-width: 440px !important;
-    margin: 10px auto 20px !important;
-    z-index: 25 !important;
-  }
-  #biotech-timeline .timeline-map-wrap {
-    position: relative !important;
-    inset: auto !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    margin-top: 15px !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding: 10px 16px 40px !important;
-    display: block !important;
-    z-index: 20 !important;
-  }
-  #biotech-timeline .timeline-map-wrap svg {
-    min-width: 1100px !important;
-    height: 480px !important;
-    display: block !important;
-  }
-  #biotech-timeline .tl-hud-monitor {
     display: none !important;
   }
 }
 
 @media (max-width: 768px) {
+  /* Ensure ALL Event Cards (Technical & Non-Technical) are 100% Visible on Mobile */
+  .dna-rope-wrap {
+    padding-top: 10px !important;
+  }
+  .dna-rope-svg {
+    display: none !important;
+  }
+  .dna-rope-items {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 45px 16px !important;
+    margin-top: 15px !important;
+  }
+  .dna-item {
+    margin-bottom: 20px !important;
+  }
+  .dna-card-square {
+    width: 145px !important;
+    height: 145px !important;
+  }
+
   /* ============ MOBILE PORTRAIT PERFECT CENTERED VIDEO ENGINE (Matching codeoclock2k26.com) ============ */
   .intro,
   .hero,

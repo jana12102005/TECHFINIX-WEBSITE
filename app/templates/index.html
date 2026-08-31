@@ -503,6 +503,9 @@ const BACKGROUND_VIDEO_PATH="{{url_for('static',filename='media/background_video
             <!-- Subtitles -->
             <div class="dev-subtitle-dept" id="devSubDept">FINAL YEAR BIOTECHNOLOGY</div>
             <div class="dev-subtitle-college" id="devSubCollege">PAAVAI ENGINEERING COLLEGE</div>
+            <a href="https://www.instagram.com/pec_bioverse?igsh=bXlkbnh0ejE4b3Rt" target="_blank" rel="noopener" class="footer-insta-link" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 20px;background:rgba(255,82,190,0.15);border:1px solid #ff52be;border-radius:20px;color:#ffffff;font:800 12px 'Space Grotesk',sans-serif;letter-spacing:.18em;text-shadow:0 0 12px rgba(255,82,190,0.7);box-shadow:0 0 20px rgba(255,82,190,0.3);transition:all .3s ease;">
+                <span>📸</span> FOLLOW US ON INSTAGRAM @PEC_BIOVERSE
+            </a>
         </div>
     </div>
 </footer>
@@ -1273,13 +1276,25 @@ document.getElementById('eventSplitModal')?.addEventListener('click', function(e
 
     if (!section || !video) return;
 
+    const isMobileView = () => window.innerWidth <= 900;
+
     let targetTime = 0;
     let smoothedTime = 0;
     let duration = 0;
     let isVideoReady = false;
 
-    // Ensure video stays strictly paused
-    video.pause();
+    function applyVideoMode() {
+        if (isMobileView()) {
+            video.loop = true;
+            video.muted = true;
+            video.setAttribute('playsinline', '');
+            video.play().catch(() => {});
+        } else {
+            video.pause();
+        }
+    }
+
+    applyVideoMode();
 
     function onMetadataLoaded() {
         if (video.duration && !isNaN(video.duration) && video.duration > 0) {
@@ -1289,7 +1304,11 @@ document.getElementById('eventSplitModal')?.addEventListener('click', function(e
                 loader.style.opacity = '0';
                 setTimeout(() => { loader.style.display = 'none'; }, 500);
             }
-            updateScrollProgress();
+            if (!isMobileView()) {
+                updateScrollProgress();
+            } else {
+                video.play().catch(() => {});
+            }
         }
     }
 
@@ -1301,6 +1320,7 @@ document.getElementById('eventSplitModal')?.addEventListener('click', function(e
     }
 
     function updateScrollProgress() {
+        if (isMobileView()) return;
         const sectionRect = section.getBoundingClientRect();
         const sectionHeight = section.offsetHeight;
         const viewportHeight = window.innerHeight;
@@ -1316,12 +1336,11 @@ document.getElementById('eventSplitModal')?.addEventListener('click', function(e
         }
     }
 
-    // 60FPS LERP Render Loop for Butter-Smooth Scrubbing
+    // 60FPS LERP Render Loop for Butter-Smooth Scrubbing (Desktop only)
     function renderLoop() {
-        if (isVideoReady && duration > 0) {
+        if (!isMobileView() && isVideoReady && duration > 0) {
             const diff = targetTime - smoothedTime;
             if (Math.abs(diff) > 0.003) {
-                // Smooth fluid dampening factor
                 smoothedTime += diff * 0.18;
 
                 if (!video.seeking) {
@@ -1337,7 +1356,10 @@ document.getElementById('eventSplitModal')?.addEventListener('click', function(e
     }
 
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
-    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', () => {
+        applyVideoMode();
+        updateScrollProgress();
+    }, { passive: true });
 
     updateScrollProgress();
     requestAnimationFrame(renderLoop);

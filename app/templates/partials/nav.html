@@ -10,6 +10,7 @@
         <a href="{{ url_for('main.index') }}#event-project-expo">PROJECT EXPO</a>
         <a href="{{ url_for('gallery.index') }}">GALLERY</a>
         <a href="{{ url_for('results.index') }}">RESULTS</a>
+        <a href="https://www.instagram.com/pec_bioverse?igsh=bXlkbnh0ejE4b3Rt" target="_blank" rel="noopener" class="nav-insta-btn" style="display:inline-flex;align-items:center;gap:6px;color:#ff52be!important;font-weight:700;text-shadow:0 0 12px rgba(255,82,190,0.6)!important;"><span style="font-size:15px;">📸</span> INSTAGRAM</a>
         {% set user = session.get('user') %}
         {% if user %}
             {% if user.role == 'participant' %}
@@ -31,6 +32,7 @@
     <a href="{{ url_for('main.index') }}#event-project-expo">PROJECT EXPO</a>
     <a href="{{ url_for('gallery.index') }}">GALLERY</a>
     <a href="{{ url_for('results.index') }}">RESULTS</a>
+    <a href="https://www.instagram.com/pec_bioverse?igsh=bXlkbnh0ejE4b3Rt" target="_blank" rel="noopener" style="color:#ff52be!important;display:flex;align-items:center;gap:8px;font-weight:700;">📸 FOLLOW ON INSTAGRAM (@pec_bioverse)</a>
     {% set user = session.get('user') %}
     {% if user %}
         {% if user.role == 'participant' %}
