@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 import os
-from flask import Blueprint, current_app, render_template, send_from_directory
+from flask import Blueprint, Response, current_app, render_template, send_from_directory
 
 from ..services.mongodb import get_db
 
@@ -20,6 +20,43 @@ def favicon_png():
 def apple_touch_icon():
     static_folder = os.path.abspath(os.path.join(bp.root_path, '..', 'static'))
     return send_from_directory(static_folder, 'apple-touch-icon.png', mimetype='image/png')
+
+@bp.route('/robots.txt')
+def robots_txt():
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /login\n"
+        "Disallow: /participant/\n"
+        "Disallow: /coordinator/\n"
+        "Disallow: /auth/\n\n"
+        "Sitemap: https://biotechtechfinix.me/sitemap.xml\n"
+    )
+    return Response(content, mimetype="text/plain")
+
+@bp.route('/sitemap.xml')
+def sitemap_xml():
+    content = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '  <url>\n'
+        '    <loc>https://biotechtechfinix.me/</loc>\n'
+        '    <changefreq>daily</changefreq>\n'
+        '    <priority>1.0</priority>\n'
+        '  </url>\n'
+        '  <url>\n'
+        '    <loc>https://biotechtechfinix.me/gallery</loc>\n'
+        '    <changefreq>weekly</changefreq>\n'
+        '    <priority>0.8</priority>\n'
+        '  </url>\n'
+        '  <url>\n'
+        '    <loc>https://biotechtechfinix.me/results</loc>\n'
+        '    <changefreq>daily</changefreq>\n'
+        '    <priority>0.8</priority>\n'
+        '  </url>\n'
+        '</urlset>'
+    )
+    return Response(content, mimetype="application/xml")
 
 
 DEFAULT_EVENTS = [
